@@ -46,7 +46,7 @@ class _SplashcreenState extends State<Splashcreen> {
 child: Image.asset("images/logeoo.png",color: Colors.black,),
 
                 ),
-                Text("مرحبا", style: TextStyle(fontFamily: 'ArefRuqaa',fontWeight:FontWeight.bold ,fontSize: 60),),
+                Text("", style: TextStyle(fontFamily: 'ArefRuqaa',fontWeight:FontWeight.bold ,fontSize: 60),),
               ],
             ),
           ),
