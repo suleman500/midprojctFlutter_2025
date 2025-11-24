@@ -30,12 +30,7 @@ class _Screen1State extends State<Screen1> {
    bool isEmail=false;
   bool ispass=false;
 
-  List<ITEMS> material = [
-    ITEMS(titill: "Gams", sub: "", icco: Icons.games, page: Gamis()),
-    ITEMS(titill: "Notes", sub: "", icco: Icons.note, page: Notes()),
-    ITEMS(titill: "Store", sub: "", icco: Icons.book, page: Music()),
-    ITEMS(titill: "Setings", sub: "", icco: Icons.settings, page: Setting()),
-  ];
+
 
 
   chekk(){
@@ -50,6 +45,15 @@ class _Screen1State extends State<Screen1> {
 
   @override
   Widget build(BuildContext context) {
+
+    List<ITEMS> material = [
+      ITEMS(titill: "Gams", sub: "", icco: Icons.games, page: Gamis()),
+      ITEMS(titill: "Notes", sub: "", icco: Icons.note, page: Notes()),
+      ITEMS(titill: "Store", sub: "", icco: Icons.book, page: Music()),
+      ITEMS(titill: "Setings", sub: "", icco: Icons.settings, page: Setting(name:saveEmail,passs:savePass,)),
+    ];
+
+
     return Scaffold(
       body: loin
           ? Container(
@@ -92,12 +96,14 @@ class _Screen1State extends State<Screen1> {
                 child: Costmtextform(iconss: Icons.email,name: "ASDFFD@hotmail.com",helperr: massegLapelEmail,onCHanged: (value) {
                   setState(() {
                     if(value.contains("@") ==false){
+
                       massegLapelEmail="pless enter @";
 
                     }
                     else {
                       massegLapelEmail="good";
                 isEmail=true;
+                saveEmail=value;
 
                     }
                   });
