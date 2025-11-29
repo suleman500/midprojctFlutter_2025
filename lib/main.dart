@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'SplashScriin.dart';
+import 'Task/homTask.dart';
+import 'midProgct2/home_Scrin.dart';
+
 
 void main() {
   runApp( MyApp());
@@ -15,7 +17,7 @@ class MyApp extends StatelessWidget {
 
   return MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: Splashcreen(),
+    home: HomeScrin(),
 
   );
   }
