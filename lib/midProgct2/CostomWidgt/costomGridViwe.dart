@@ -25,7 +25,7 @@ return Orderdetalispag(nameProdact:widget.moGrd.namePrdact ,photoProdact: widget
 
 
 
-        //  بحط صفحت المنتجات ز بخلي كونستركتر
+
 
 
       },child: Container(

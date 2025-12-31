@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:orojct/fainalProjct/scriens/firstPage.dart';
 
 import 'GoodFood/loginGodFood.dart';
 import 'GoodFood/splashScreen.dart';
 import 'Task/homTask.dart';
+import 'fainalProjct/scriens/home_shop_game.dart';
 import 'midProgct2/home_Scrin.dart';
 
 
@@ -24,7 +26,7 @@ class _MyAppState extends State<MyApp> {
 
   return MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: Splashscreen (),
+    home: Firstpage(),
 
   );
   }

@@ -1,121 +1,118 @@
 import 'package:flutter/material.dart';
 import 'package:orojct/GoodFood/Widgte/CostomWidgtTextFeld.dart';
+import 'package:orojct/tapBarr.dart';
 
 import '../midProgct2/Stayle/staylText.dart';
+import 'Scrins/favarit.dart';
+import 'Scrins/home.dart';
+import 'Scrins/shoing.dart';
+import 'Scrins/sitiingAccont.dart';
 import 'Style/DecrionStayle.dart';
 import 'Widgte/costomFood.dart';
 import 'Widgte/costomFoodCatger.dart';
 import 'modle/modelProdactFood.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
-class Homescreengoodfood extends StatelessWidget {
-  List<String> foodCategories = ["All", "Burger", "Drinks", "Desserts"];
+class Homescreengoodfood extends StatefulWidget {
+
+  @override
+  State<Homescreengoodfood> createState() => _HomescreengoodfoodState();
+}
+
+class _HomescreengoodfoodState extends State<Homescreengoodfood> {
+
+  late PersistentTabController _controller;
+late  List<Modelproductfood>cart=[];
+
+  Map<String,IconData> mapNavigtor={
+    'Home':Icons.home,
+    'Shop': Icons.shopping_cart,
+
+    'Faivert' :Icons.favorite,
+    'Sitting' :Icons.settings
+
+  };
+
+  late List<Widget> paeg=[
+    Home(cart:cart),
+    Shoing(cart: cart,),
+
+    Favarit(),
+    Sitiingaccont()
+
+
+  ];
+
+  int index=0;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = PersistentTabController(initialIndex: 0);
+  }
+
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      body: Column(
-        // mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            child: ListTile(
-              title: Text(
-                "Good Food",
-                style: TextStyle(fontFamily: "rrt", fontSize: 40),
-              ),
-              subtitle: Text("Order your favourite food"),
-            ),
+
+
+
+      body:
+
+     PersistentTabView(
+        context,
+        controller: _controller,
+        screens: paeg,
+        items:mapNavigtor.entries.map((e) {
+          return PersistentBottomNavBarItem(
+            icon: Icon(e.value),
+            title: e.key,
+            activeColorPrimary: Colors.blue,
+            inactiveColorPrimary: Colors.grey,
+          );
+        }).toList(),
+        handleAndroidBackButtonPress: true, // Default is true.
+        resizeToAvoidBottomInset: true, // This needs to be true if you want to move up the screen on a non-scrollable screen when keyboard appears. Default is true.
+        stateManagement: false, // Default is true.
+        hideNavigationBarWhenKeyboardAppears: true,
+        popBehaviorOnSelectedNavBarItemPress:PopBehavior.all,
+        padding: const EdgeInsets.only(top: 8),
+        backgroundColor: Colors.redAccent.shade700,
+        isVisible: true,
+        animationSettings: const NavBarAnimationSettings(
+          navBarItemAnimation: ItemAnimationSettings( // Navigation Bar's items animation properties.
+            duration: Duration(milliseconds: 400),
+            curve: Curves.ease,
           ),
-
-          SizedBox(height: MediaQuery.of(context).size.height * 0.06),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.80,
-                  height: 60,
-                  decoration: Decrionstayle.styleDecion.copyWith(
-                    borderRadius: BorderRadius.circular(15),
-                    gradient: LinearGradient(
-                      colors: [
-                        Color(0xFFFFEBEE),
-                        Color(0xFFFFCDD2),
-                        Color(0xFFEF9A9A),
-                        Color(0xFFE57373),
-                        Color(0xFFDA6764),
-                        Color(0xFFCD635B),
-                        Color(0xFFA65E5B),
-                      ],
-                    ),
-                  ),
-                  child: Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 30, right: 30),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hint: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.search),
-                              Text(
-                                "Seaech",
-                                style: Stayltext.textStyle.copyWith(
-                                  fontSize: 20,
-                                ),
-                              ),
-                            ],
-                          ),
-                          // prefixIcon: Center(child: Icon(Icons.search)),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Card(elevation: 8, child: Icon(Icons.filter_alt)),
-                ),
-              ],
-            ),
+          screenTransitionAnimation: ScreenTransitionAnimationSettings( // Screen transition animation on change of selected tab.
+            animateTabTransition: true,
+            duration: Duration(milliseconds: 200),
+            screenTransitionAnimationType: ScreenTransitionAnimationType.fadeIn,
           ),
-
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.06,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemExtent: 100,
-                itemCount: foodCategories.length,
-                itemBuilder: (context, index) {
-                  return Costomfoodcatger(text: foodCategories[index]);
-                },
-              ),
-            ),
-          ),
-
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.5,
-
-            child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 10,
-              ),
-              itemCount: foodList.length,
-              itemBuilder: (context, index) {
-                return Costomfood(food: foodList[index]);
-              },
-            ),
-          ),
-        ],
+        ),
+        confineToSafeArea: true,
+        navBarHeight: kBottomNavigationBarHeight,
+        navBarStyle: NavBarStyle.style1, // Choose the nav bar style with this property
       ),
     );
+
+
+
   }
 }
+
+
+
+
+
+    /*BottomNavigationBar(onTap: (value) {
+
+setState(() {
+  index=value;
+});
+
+      },currentIndex: index,items:mapNavigtor.entries.map((e) => BottomNavigationBarItem(icon: Icon(e.value),label: e.key),).toList() ) ,
+    );
+  */

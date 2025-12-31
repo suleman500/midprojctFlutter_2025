@@ -31,9 +31,19 @@ dependencies:
   flutter:
     sdk: flutter
 
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
+  smooth_page_indicator: ^2.0.1
+  curved_labeled_navigation_bar: ^2.0.6
+  persistent_bottom_nav_bar: ^6.2.1
+  lottie: ^3.3.2
+  page_transition: 2.0.9
+  overlapped_carousel: ^1.0.2
+  carousel_slider_plus: ^7.1.1
+  carousel_slider: ^5.1.1
+  flutter_snake_navigationbar: ^0.6.1
 
 dev_dependencies:
   flutter_test:
@@ -61,6 +71,7 @@ flutter:
   assets:
      - images/
      - food/
+     - imegGames/
 
 
 
@@ -79,13 +90,22 @@ flutter:
      - family: rrt
        fonts:
          - asset: fonts/Caveat-VariableFont_wght.ttf
-    #     - asset: fonts/ArefRuqaa-Bold.ttf
+         - asset: fonts/Roboto.ttf
           # weight: 700
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
      - family: rrt1
        fonts:
          - asset: fonts/font2/AbrilFatface-Regular.ttf
+
+     - family: rrt
+       fonts:
+        - asset: fonts/Caveat-VariableFont_wght.ttf
+
+     - family: rob
+       fonts:
+        - asset: fonts/Roboto.ttf
+
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   #

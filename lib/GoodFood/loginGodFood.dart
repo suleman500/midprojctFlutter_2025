@@ -4,6 +4,7 @@ import 'package:orojct/GoodFood/Widgte/CostomWidgtTextFeld.dart';
 import 'HomeScreenGoodFood.dart';
 import 'Style/DecrionStayle.dart';
 import 'Style/textStayl.dart';
+import "package:lottie/lottie.dart";
 
 class Logingodfood extends StatefulWidget {
   @override
@@ -22,16 +23,32 @@ class _LogingodfoodState extends State<Logingodfood> {
           mainAxisAlignment: MainAxisAlignment.center,
 
           children: [
+
+            Container(
+              height: 200,
+width: 150,
+//width: 150,
+                //height: 150,
+                //color: Colors.amber,
+                child: LottieBuilder.network("https://lottie.host/543eb5b1-9e61-4104-9001-821b36c1a879/Ie3aoB9izv.json")),
+
+
             Text("Long In", style: Textstayl.styletext),
+
             Container(
               decoration: Decrionstayle.styleDecion,
 
               child: Column(
                 children: [
+
+
                   Form(
                     key: _formKey,
                     child: Column(
+
                       children: [
+
+
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Costomwidgttextfeld(
