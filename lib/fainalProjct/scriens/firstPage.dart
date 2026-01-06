@@ -11,6 +11,12 @@ import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 class Firstpage extends StatefulWidget {
   List<ModelProduct> isfavert=GamesList.where((e) =>e.isFav==true ,).toList();
 
+  String? emails;
+  String? pass;
+
+  String? firstName;
+  String? lastName;
+  Firstpage({  this.emails,this.pass,this.firstName,this.lastName});
   @override
   State<Firstpage> createState() => _FirstpageState();
 }
@@ -27,10 +33,10 @@ class _FirstpageState extends State<Firstpage> {
 
    };
 
-  List<Widget>namePage=[
+  late List<Widget>namePage=[
 
     Faviert(),
-    HomeShopGame(),
+    HomeShopGame(emails:widget.emails,firstName:widget.firstName ,lastName: widget.lastName,pass: widget.pass,),
     ShoppingCart(),
 
 

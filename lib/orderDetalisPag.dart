@@ -3,6 +3,7 @@ import 'package:orojct/fainalProjct/models/Categories.dart';
 import 'package:orojct/fainalProjct/scriens/payProdact.dart';
 import 'package:orojct/fainalProjct/stayle/textStayle.dart';
 import 'package:orojct/fainalProjct/widget/costomComentParson.dart';
+import 'package:orojct/fainalProjct/widget/costomTextForm.dart';
 
 import 'fainalProjct/models/modelParson.dart';
 import 'midProgct2/Stayle/staylText.dart';
@@ -12,7 +13,7 @@ import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'dart:math';
 
 
-class Orderdetalispag extends StatelessWidget {
+class Orderdetalispag extends StatefulWidget {
   String nameProdact;
   double price;
   String photoProdact;
@@ -22,10 +23,18 @@ class Orderdetalispag extends StatelessWidget {
       {required this.nameProdact, required this.price, required this.photoProdact, this.discrbion});
 
   @override
+  State<Orderdetalispag> createState() => _OrderdetalispagState();
+}
+
+class _OrderdetalispagState extends State<Orderdetalispag> {
+  TextEditingController comment = TextEditingController();
+  bool showComent=false;
+
+  @override
   Widget build(BuildContext context) {
     Random random = Random();
     int randomNumber = random.nextInt(11);
-    
+
     return Scaffold(
     appBar: AppBar(),
 
@@ -34,7 +43,7 @@ class Orderdetalispag extends StatelessWidget {
     child: Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-    Image.asset(photoProdact),
+    Image.asset(widget.photoProdact),
 
     Row(
     mainAxisAlignment: MainAxisAlignment.center,
@@ -52,7 +61,7 @@ class Orderdetalispag extends StatelessWidget {
     ),
     Padding(
     padding: const EdgeInsets.all(8.0),
-    child: Text("JOR${price.toString()}",style:Stayltext.textStyle.copyWith(fontSize: 15) ,),
+    child: Text("JOR${widget.price.toString()}",style:Stayltext.textStyle.copyWith(fontSize: 15) ,),
     ),
 
     ],),
@@ -72,7 +81,7 @@ class Orderdetalispag extends StatelessWidget {
 
 
     title: ReadMoreText(
-    "${discrbion!}",
+    "${widget.discrbion!}",
     trimLines: 2,
     colorClickableText: Colors.black,
     trimMode: TrimMode.Line,
@@ -88,7 +97,70 @@ class Orderdetalispag extends StatelessWidget {
 
     ),
     SizedBox(height: 40,),
-    Container(
+
+      Align(
+        alignment: AlignmentGeometry.topLeft,
+        child: Container(
+            width: MediaQuery.of(context).size.width*0.70,
+            height: MediaQuery.of(context).size.height*0.12,
+            child: Row(
+              children: [
+                Align(
+                    alignment: AlignmentGeometry.topLeft,
+                    child: CircleAvatar(child: Icon(Icons.person),)),
+                Expanded(child: CustomTextField(label: Icons.hdr_off_select_rounded, hint: "Comeent", helper: "",control:comment ,onSaved: (u) {
+
+                setState(() {
+                  u=  comment.text;
+
+
+                });
+                },)),
+InkWell(
+onTap: () {
+  if(comment!=null){
+    setState(() {
+      showComent=true;
+    });
+    
+
+  }
+ 
+
+}
+,child: Card(margin: EdgeInsets.all(5),child: Text("اضافة تعليق"))),
+              ],
+            )),
+      ),
+
+
+
+
+
+
+
+      showComent?  Card(
+        child: Padding(
+          padding: const EdgeInsets.only(right: 15,left: 20),
+          child: ListTile(
+              leading: CircleAvatar(child: Icon(Icons.person)),
+              title: Text("ali",style: Stayltext.textStyle.copyWith(fontSize: 12),),
+              subtitle: Text(comment.text),
+              trailing: Column(
+                children: [
+                  Text("${""} "),
+                  Icon(Icons.star,color: Colors.amber,size: 16,)
+                ],
+              ),
+          ),
+        ),
+      ):Text("data"),
+
+
+
+
+
+            Container(
     width: MediaQuery.of(context).size.width,
 
 
@@ -106,7 +178,7 @@ class Orderdetalispag extends StatelessWidget {
 
     bottomSheet:InkWell(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => Payprodact(photoProdact: photoProdact, namePrdact:nameProdact),));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Payprodact(photoProdact: widget.photoProdact, namePrdact:widget.nameProdact),));
       },
 
       child: Card(
@@ -132,6 +204,4 @@ class Orderdetalispag extends StatelessWidget {
 
     );
   }
-
-
 }

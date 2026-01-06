@@ -32,9 +32,11 @@ import 'package:lottie/lottie.dart';
 
 class HomeShopGame extends StatefulWidget {
   @override
-  //String naem;
-  //String emails;
-  //Homepag({required this.naem,required this.emails});
+  String? pass;
+  String? emails;
+  String? firstName;
+  String? lastName;
+  HomeShopGame({ this.pass, this.emails,this.firstName,this.lastName});
   State<HomeShopGame> createState() => _HomepagState();
 }
 
@@ -152,8 +154,8 @@ class _HomepagState extends State<HomeShopGame> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           ListTile(
-                            title: CircleAvatar(child: Text("Ali")),
-                            // subtitle: Text("vcxzxcv@gmail.com"),
+                            title: CircleAvatar(child: Text(widget.firstName!)),
+                             subtitle: Text(widget.emails!),
                           ),
                         ],
                       ),

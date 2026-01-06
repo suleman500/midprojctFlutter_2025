@@ -127,14 +127,8 @@ class _PayprodactState extends State<Payprodact> {
 
                 fullForme?  Future.delayed(Duration(seconds: 2)).then((_) {
                   EasyLoading.dismiss();
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) {
-                      orderList.add(Modelshoporder(namePrdact: widget.namePrdact, photoProdact: widget.photoProdact, locion:lcaion .text , email: email.text, name:number.text ));
-                      return Firstpage();
-                    },),
-                        (route) => false,
-                  );
+                  orderList.add(Modelshoporder(namePrdact: widget.namePrdact, photoProdact: widget.photoProdact, locion:lcaion .text , email: email.text, name:number.text ));
+                  Navigator.pop(context);
                 }):Text("data");
 
 
