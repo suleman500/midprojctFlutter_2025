@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:orojct/fainalProjct/models/prodactAll.dart';
 import 'package:orojct/fainalProjct/scriens/faviert.dart';
 import 'package:orojct/fainalProjct/scriens/home_shop_game.dart';
 import 'package:orojct/fainalProjct/scriens/shopping_cart.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 
 
 class Firstpage extends StatefulWidget {
+  List<ModelProduct> isfavert=GamesList.where((e) =>e.isFav==true ,).toList();
 
   @override
   State<Firstpage> createState() => _FirstpageState();
@@ -15,6 +17,8 @@ class Firstpage extends StatefulWidget {
 
 class _FirstpageState extends State<Firstpage> {
   int selectindex=1;
+
+
 
    Map<String,IconData> iconAndString={
      'Faivert': Icons.favorite_outlined,

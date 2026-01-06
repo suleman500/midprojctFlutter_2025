@@ -1,0 +1,24 @@
+
+  TextEditingController searchController = TextEditingController();
+  List<ModelProduct> filteredItems = [];
+
+   filteredItems = List.from(GearList);
+     void searchProducts(String name){
+   setState(() {
+   if(name.isEmpty){
+   print("isEmpty");
+   showSearchResults = false;
+   filteredItems = List.from(GearList);
+
+   }
+   else{
+     showSearchResults = true;
+     filteredItems = GearList.where((product) {
+       return product.namePrdact.toLowerCase().contains(name.toLowerCase());
+     }).toList();
+
+   }
+
+
+   });
+     }

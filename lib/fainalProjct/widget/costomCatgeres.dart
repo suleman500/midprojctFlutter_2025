@@ -14,32 +14,34 @@ class costomCatger extends  StatelessWidget{
   @override
   Widget build(BuildContext context) {
 
-    return Padding(
-      padding:  EdgeInsets.all(8.0),
-      child: InkWell(
-        onTap:voidCallback,
+    return Card(
+      child: Padding(
+        padding:  EdgeInsets.all(8.0),
+        child: InkWell(
+          onTap:voidCallback,
 
-        child: Container(
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-              //color: Colors.white,
-              borderRadius: BorderRadius.circular(15)
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
+          child: Container(
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                //color: Colors.white,
+                borderRadius: BorderRadius.circular(15)
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
 
 
-                child: Lottie.network(gatoger.lotiNames,backgroundLoading: true),
-              ),
-              //SizedBox(height: 5),
-              Text(
-                gatoger.namesTopCate,
-                style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.027,fontFamily: "rrt1"),
+                  child: Lottie.network(gatoger.lotiNames,backgroundLoading: true),
+                ),
+                //SizedBox(height: 5),
+                Text(
+                  gatoger.namesTopCate,
+                  style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.027,fontFamily: "rrt1"),
 
-              ),
-            ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -44,6 +44,8 @@ dependencies:
   carousel_slider_plus: ^7.1.1
   carousel_slider: ^5.1.1
   flutter_snake_navigationbar: ^0.6.1
+  flutter_easyloading: ^3.0.5
+  readmore: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +74,7 @@ flutter:
      - images/
      - food/
      - imegGames/
+     - UpcGaImeg/
 
 
 

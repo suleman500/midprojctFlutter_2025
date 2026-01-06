@@ -20,7 +20,7 @@ class _CostomGridViwerState extends State<CostomGridViwer> {
 
 
           Navigator.push(context, MaterialPageRoute(builder: (context) {
-return Orderdetalispag(nameProdact:widget.moGrd.namePrdact ,photoProdact: widget.moGrd.PhotoProdact,price:  widget.moGrd.price);
+return Orderdetalispag(nameProdact:widget.moGrd.namePrdact ,photoProdact: widget.moGrd.PhotoProdact,price:  widget.moGrd.price,discrbion: widget.moGrd.namePrdact,);
           },));
 
 

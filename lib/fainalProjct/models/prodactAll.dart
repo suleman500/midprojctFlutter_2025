@@ -13,7 +13,7 @@ class ModelProduct {
     required this.spuNames,
     required this.photoProdact,
     this.price = 0,
-    this.isFav = false,
+    required this.isFav ,
     this.discrbion,
   });
 
@@ -34,24 +34,25 @@ class ModelProduct {
         discrbion: discrbion ?? this.discrbion
     );
   }
+
+
 }
-
-
-
 List<ModelProduct> GearList = [
   ModelProduct(
-    namePrdact: "PlayStation 5",
+    namePrdact: "PS5",
     spuNames: "Gaming Consoles",
     photoProdact: "images/Ps5.jpg",
     price: 499.99,
     isFav: false,
+    discrbion: "PlayStation 5 next-gen console with fast processor and 4K support",
   ),
   ModelProduct(
-    namePrdact: "Xbox Series X",
+    namePrdact: "Xbox X",
     spuNames: "Gaming Consoles",
     photoProdact: "images/Xboxseris.jpg",
     price: 499.99,
     isFav: false,
+    discrbion: "Xbox Series X with high performance and cloud gaming support",
   ),
   ModelProduct(
     namePrdact: "Nintendo Switch",
@@ -59,27 +60,31 @@ List<ModelProduct> GearList = [
     photoProdact: "images/HandGamis.jpg",
     price: 299.99,
     isFav: false,
+    discrbion: "Nintendo Switch can be played on TV or as a portable device",
   ),
   ModelProduct(
-    namePrdact: "Gaming Headset",
+    namePrdact: "Headset",
     spuNames: "Gaming Accessories",
     photoProdact: "images/maicro.jpg",
     price: 79.99,
     isFav: false,
+    discrbion: "Gaming headset with high-quality microphone, comfortable for long use",
   ),
   ModelProduct(
-    namePrdact: "Mechanical Keyboard",
+    namePrdact: "Keyboard",
     spuNames: "Gaming Accessories",
     photoProdact: "images/kybord.jpg",
     price: 129.99,
     isFav: false,
+    discrbion: "Mechanical gaming keyboard with RGB lighting",
   ),
   ModelProduct(
-    namePrdact: "Gaming Mouse",
+    namePrdact: "Mouse",
     spuNames: "Gaming Accessories",
     photoProdact: "images/maus.jpg",
     price: 59.99,
     isFav: false,
+    discrbion: "Gaming mouse with 16000 DPI and 6 programmable buttons",
   ),
   ModelProduct(
     namePrdact: "Gaming Chair",
@@ -87,13 +92,15 @@ List<ModelProduct> GearList = [
     photoProdact: "images/chos.jpg",
     price: 249.99,
     isFav: false,
+    discrbion: "Comfortable gaming chair with back support and armrests",
   ),
   ModelProduct(
-    namePrdact: "144Hz Gaming Monitor",
+    namePrdact: "Monitor",
     spuNames: "Gaming Monitors",
     photoProdact: "images/144z.jpg",
     price: 299.99,
     isFav: false,
+    discrbion: "144Hz gaming monitor with 1ms response time",
   ),
   ModelProduct(
     namePrdact: "Gift Cards",
@@ -101,48 +108,55 @@ List<ModelProduct> GearList = [
     photoProdact: "images/Control.jpg",
     price: 50.00,
     isFav: false,
+    discrbion: "50 gaming gift card for PlayStation, Xbox, or Steam",
   ),
   ModelProduct(
-    namePrdact: "Wireless Controller",
+    namePrdact: "Controller",
     spuNames: "Gaming Accessories",
     photoProdact: "images/pasCntrol.jpg",
     price: 69.99,
     isFav: false,
+    discrbion: "Wireless gaming controller with vibration feedback",
   ),
   ModelProduct(
-    namePrdact: "Webcam for Gaming",
+    namePrdact: "Webcam",
     spuNames: "Streaming Accessories",
     photoProdact: "images/Camera.jpg",
     price: 89.99,
     isFav: false,
+    discrbion: "1080p webcam for streaming and video calls",
   ),
   ModelProduct(
-    namePrdact: "Gaming Microphone",
+    namePrdact: "Microphone",
     spuNames: "Streaming Accessories",
     photoProdact: "images/MicrofoSmu.jpg",
     price: 99.99,
     isFav: false,
+    discrbion: "Studio quality microphone for streaming and recording",
   ),
   ModelProduct(
-    namePrdact: "PlayStation 4",
+    namePrdact: "PS4",
     spuNames: "Gaming Consoles",
     photoProdact: "images/ps4.jpg",
     price: 299.99,
     isFav: false,
+    discrbion: "PlayStation 4 console with 1TB storage",
   ),
   ModelProduct(
-    namePrdact: "Gaming Speakers",
+    namePrdact: "Speakers",
     spuNames: "Audio Accessories",
     photoProdact: "images/Speker.jpg",
     price: 149.99,
     isFav: false,
+    discrbion: "2.1 gaming speakers with subwoofer for immersive sound",
   ),
   ModelProduct(
-    namePrdact: "Gaming Backpack",
+    namePrdact: "Backpack",
     spuNames: "Accessories",
     photoProdact: "images/Bak.jpg",
     price: 49.99,
     isFav: false,
+    discrbion: "Gaming backpack with laptop compartment and cable organizers",
   ),
 ];
 
@@ -156,7 +170,7 @@ List<ModelProduct> GamesList = [
     discrbion: "An action-adventure RPG set in the dystopian future of Night City. Explore a massive open world with deep character customization, hacking abilities, and a gripping story about technology and humanity.",
   ),
   ModelProduct(
-    namePrdact: "The Last of Us Part II",
+    namePrdact: "Last of Us II",
     spuNames: "PlayStation 5",
     photoProdact: "imegGames/The Last of Us Part II.jpeg",
     price: 69.99,
@@ -188,7 +202,7 @@ List<ModelProduct> GamesList = [
     discrbion: "The latest installment in the world's most popular football simulation. Features updated teams, enhanced graphics, new gameplay mechanics, and multiple game modes including Career and Ultimate Team.",
   ),
   ModelProduct(
-    namePrdact: "God of War Ragnarök",
+    namePrdact: "God of War",
     spuNames: "PlayStation 5",
     photoProdact: "imegGames/God of War Ragnarök.jpeg",
     price: 69.99,
@@ -196,7 +210,7 @@ List<ModelProduct> GamesList = [
     discrbion: "Kratos and Atreus continue their journey through Norse mythology. Features visceral combat, a compelling father-son story, and stunning visuals set across the Nine Realms.",
   ),
   ModelProduct(
-    namePrdact: "Call of Duty: Modern Warfare III",
+    namePrdact: "Call of Duty",
     spuNames: "PC, PlayStation 5, Xbox Series X",
     photoProdact: "imegGames/Call of Duty.jpeg",
     price: 69.99,
@@ -204,7 +218,7 @@ List<ModelProduct> GamesList = [
     discrbion: "The next chapter in the Modern Warfare series. Includes a cinematic single-player campaign, extensive multiplayer modes, and cooperative Zombies gameplay with modern graphics and mechanics.",
   ),
   ModelProduct(
-    namePrdact: "The Legend of Zelda",
+    namePrdact: "Zelda",
     spuNames: "Nintendo Switch",
     photoProdact: "imegGames/The Legend of Zelda Tears of the Kingdom.jpeg",
     price: 59.99,
@@ -228,7 +242,7 @@ List<ModelProduct> GamesList = [
     discrbion: "Swing through a detailed recreation of New York City as Spider-Man. Features enhanced web-swinging mechanics, new villains, and an expanded story with multiple playable characters.",
   ),
   ModelProduct(
-    namePrdact: "Assassin's Creed Mirage",
+    namePrdact: "Assassin's Creed",
     spuNames: "PC, PlayStation 5, Xbox Series X",
     photoProdact: "imegGames/Assassin's Creed Mirage.jpeg",
     price: 49.99,
@@ -252,7 +266,7 @@ List<ModelProduct> GamesList = [
     discrbion: "The ultimate sandbox building game. Explore infinite worlds, gather resources, craft tools, and build anything you can imagine in both creative and survival modes with friends.",
   ),
   ModelProduct(
-    namePrdact: "Grand Theft Auto V",
+    namePrdact: "GTA V",
     spuNames: "PC, PlayStation 5, Xbox Series X",
     photoProdact: "imegGames/Grand Theft Auto V.jpeg",
     price: 39.99,
@@ -260,7 +274,7 @@ List<ModelProduct> GamesList = [
     discrbion: "Experience the massive open world of Los Santos and Blaine County. Play as three unique characters in a story of crime and ambition, or explore the continuously updated GTA Online multiplayer world.",
   ),
   ModelProduct(
-    namePrdact: "Resident Evil 4 Remake",
+    namePrdact: "Resident Evil 4",
     spuNames: "PC, PlayStation 5, Xbox Series X",
     photoProdact: "imegGames/Resident Evil 4 Remake.jpeg",
     price: 59.99,
@@ -268,83 +282,88 @@ List<ModelProduct> GamesList = [
     discrbion: "A complete reimagining of the classic survival horror game. Features modernized controls, stunning graphics, expanded story elements, and intense combat against terrifying enemies.",
   ),
 ];
-
 List<ModelProduct> UpcomingGamesList = [
   ModelProduct(
-    namePrdact: "Grand Theft Auto VI",
+    namePrdact: "GTA VI",
     spuNames: "PlayStation 5, Xbox Series X",
-    photoProdact: "",
+    photoProdact: "UpcGaImeg/GTAVI.jpeg",
     price: 79.99,
     isFav: false,
+    discrbion: "The next chapter in the Grand Theft Auto series set in a new open-world location",
   ),
   ModelProduct(
-    namePrdact: "The Elder Scrolls VI",
+    namePrdact: "Elder Scrolls VI",
     spuNames: "PC, Xbox Series X",
-    photoProdact: "",
+    photoProdact: "UpcGaImeg/ElderScrollsVI.jpeg",
     price: 69.99,
     isFav: false,
+    discrbion: "New fantasy RPG adventure in the Elder Scrolls universe from Bethesda",
   ),
   ModelProduct(
     namePrdact: "Fable",
     spuNames: "PC, Xbox Series X",
-    photoProdact: "",
+    photoProdact: "UpcGaImeg/Fable.jpeg",
     price: 59.99,
     isFav: false,
+    discrbion: "Revival of the beloved fantasy RPG series with new story and characters",
   ),
   ModelProduct(
     namePrdact: "Final Fantasy XVI",
     spuNames: "PlayStation 5",
-    photoProdact: "",
+    photoProdact: "UpcGaImeg/faill.jpeg",
     price: 69.99,
     isFav: false,
+    discrbion: "Latest installment in the Final Fantasy series with action-RPG combat",
   ),
   ModelProduct(
-    namePrdact: "Hollow Knight: Silksong",
+    namePrdact: "Hollow Knight",
     spuNames: "PC, PlayStation 5, Xbox Series X, Nintendo Switch",
-    photoProdact: "",
+    photoProdact: "UpcGaImeg/HollowKnight.jpeg",
     price: 39.99,
     isFav: false,
+    discrbion: "Sequel to the popular metroidvania game with new areas and challenges",
   ),
   ModelProduct(
-    namePrdact: "Star Wars: Outlaws",
+    namePrdact: "Star Wars",
     spuNames: "PC, PlayStation 5, Xbox Series X",
-    photoProdact: "",
+    photoProdact: "UpcGaImeg/StarWars.jpeg",
     price: 69.99,
     isFav: false,
+    discrbion: "New Star Wars action-adventure game with original story and characters",
   ),
   ModelProduct(
     namePrdact: "Avowed",
     spuNames: "PC, Xbox Series X",
-    photoProdact: "",
+    photoProdact: "UpcGaImeg/Avowed.jpeg",
     price: 59.99,
     isFav: false,
+    discrbion: "First-person fantasy RPG set in the Pillars of Eternity universe",
   ),
   ModelProduct(
     namePrdact: "Suicide Squad",
     spuNames: "PC, PlayStation 5, Xbox Series X",
-    photoProdact: "",
+    photoProdact: "UpcGaImeg/SuicideSquad.jpeg",
     price: 69.99,
     isFav: false,
+    discrbion: "Suicide Squad: Kill the Justice League action shooter game",
   ),
   ModelProduct(
     namePrdact: "Persona 6",
     spuNames: "PlayStation 5",
-    photoProdact: "",
+    photoProdact: "UpcGaImeg/Persona6.jpeg",
     price: 59.99,
     isFav: false,
+    discrbion: "Next mainline entry in the Persona JRPG series with new cast",
   ),
   ModelProduct(
-    namePrdact: "Dragon Age: Dreadwolf",
+    namePrdact: "Dragon Age",
     spuNames: "PC, PlayStation 5, Xbox Series X",
-    photoProdact: "",
+    photoProdact: "UpcGaImeg/DragonAge.jpeg",
     price: 69.99,
     isFav: false,
+    discrbion: "Dragon Age: Dreadwolf - New chapter in the epic fantasy RPG series",
   ),
 ];
-
-
-
-
 List<ModelProduct>allList=[
   ...GearList,
   ... GamesList,

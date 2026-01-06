@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:orojct/fainalProjct/scriens/firstPage.dart';
+import 'package:orojct/fainalProjct/scriens/loginAccont.dart';
 
 import 'GoodFood/loginGodFood.dart';
 import 'GoodFood/splashScreen.dart';
 import 'Task/homTask.dart';
 import 'fainalProjct/scriens/home_shop_game.dart';
 import 'midProgct2/home_Scrin.dart';
-
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 void main() {
   runApp( MyApp());
@@ -26,7 +27,8 @@ class _MyAppState extends State<MyApp> {
 
   return MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: Firstpage(),
+    home: Loginaccont(),
+    builder: EasyLoading.init(),
 
   );
   }

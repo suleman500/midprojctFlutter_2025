@@ -1,126 +1,127 @@
 import 'package:flutter/material.dart';
 import 'package:orojct/fainalProjct/models/prodactAll.dart';
-import 'package:orojct/midProgct2/models/modelGridView.dart';
 import 'package:orojct/orderDetalisPag.dart';
 
-class CostomProdact extends StatefulWidget {
-  ModelProduct moGrd;
+class CostomProdact extends StatelessWidget {
+   ModelProduct moGrd;
 
-  CostomProdact({ required this.moGrd});
+   CostomProdact({required this.moGrd});
 
-  @override
-  State<CostomProdact> createState() => _CostomGridViwerState();
-}
-
-class _CostomGridViwerState extends State<CostomProdact> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-
-
       onTap: () {
-
-
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return Orderdetalispag(nameProdact:widget.moGrd.namePrdact ,photoProdact: widget.moGrd.photoProdact,price:  widget.moGrd.price);
-        },));
-//  لا تنسى تغبر مكان صفحت تغير المنتجات
-
-
-
-
-
-      },child: Container(
-      //width: MediaQuery.of(context).size.width * 0.05,
-      //height: MediaQuery.of(context).size.height * 0.25,
-
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(30),
-      ),
-      child: Column(
-        children: [
-
-          Container(
-            width: MediaQuery.of(context).size.width * 0.20,
-            height: MediaQuery.of(context).size.height * 0.10,
-            child: Image.asset(
-              widget.moGrd.photoProdact,
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Orderdetalispag(
+              nameProdact: moGrd.namePrdact,
+              photoProdact: moGrd.photoProdact,
+              price: moGrd.price,
+              discrbion: moGrd.discrbion,
             ),
           ),
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 8,
+              offset: Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Container(
 
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(1.0),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: Container(
-                  width:MediaQuery.of(context).size.width * 0.44,
-                  height: MediaQuery.of(context).size.height * 0.20,
-
-                  child: Row(
-
-                    children: [
-
-                       Icon(Icons.star_border),
-                 Text("5")
 
 
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
 
-
-                    ],
-
+                  ),
+                  image: DecorationImage(
+                    image: AssetImage(moGrd.photoProdact),
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
             ),
-          ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              moGrd.namePrdact,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "rrt1",
+                              ),
 
-          Align(
-            alignment: Alignment.topLeft,
-            child: Padding(
-              padding: const EdgeInsets.all(1.0),
-              child: Text(
-                widget.moGrd.namePrdact,
 
-                style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.width * 0.04,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: "rrt1"
+                            ),
+                            SizedBox(height: 6),
+
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.star,
+                                  color: Colors.amber,
+                                  size: 16,
+                                ),
+
+                                Text(
+                                  "5.0",
+                                  style: TextStyle(
+
+                                    color:  Colors.black45,
+                                  ),
+                                ),
+                              ],
+                            ),
+
+                            Text(
+                              "\$${moGrd.price.toString()}",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black45,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-
             ),
-          ),
-
-
-          // Expanded(child: Text(widget.moGrd.price)),
-
-
-
-          Expanded(
-
-
-              child: Align(
-                  alignment: Alignment.topRight,
-                  child: Text(widget.moGrd.price.toString()+"\$",style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.04),))),
-
-
-          
-          Expanded(child: Stack(children: [
-            Icon(Icons.eighteen_mp_outlined)
-          ],))
-          
-        ],
-
-
+          ],
+        ),
       ),
-
-
-
-    ),);
-
-
-
+    );
   }
 }
