@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:orojct/fainalProjct/models/dataLoginAndSingUp.dart';
 import 'package:orojct/fainalProjct/models/prodactAll.dart';
 import 'package:orojct/fainalProjct/scriens/faviert.dart';
 import 'package:orojct/fainalProjct/scriens/home_shop_game.dart';
@@ -16,7 +17,9 @@ class Firstpage extends StatefulWidget {
 
   String? firstName;
   String? lastName;
-  Firstpage({  this.emails,this.pass,this.firstName,this.lastName});
+  double? balance;
+  Dataloginandsingup? acoont;
+  Firstpage({  this.emails,this.pass,this.firstName,this.lastName,this.balance, this.acoont});
   @override
   State<Firstpage> createState() => _FirstpageState();
 }
@@ -36,7 +39,7 @@ class _FirstpageState extends State<Firstpage> {
   late List<Widget>namePage=[
 
     Faviert(),
-    HomeShopGame(emails:widget.emails,firstName:widget.firstName ,lastName: widget.lastName,pass: widget.pass,),
+    HomeShopGame(emails:widget.emails!,firstName:widget.firstName! ,lastName: widget.lastName!,pass: widget.pass!,balance: widget.balance,),
     ShoppingCart(),
 
 

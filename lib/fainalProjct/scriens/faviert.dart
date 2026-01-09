@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:orojct/fainalProjct/models/prodactAll.dart';
+
 import 'package:orojct/fainalProjct/stayle/textStayle.dart';
 
 class Faviert extends StatefulWidget {
@@ -9,57 +10,77 @@ class Faviert extends StatefulWidget {
 }
 
 class _FaviertState extends State<Faviert> {
-  List<ModelProduct> getAllList() {
-    return [...GearList, ...GamesList, ...UpcomingGamesList];
+  List<ModelProduct> favList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    loadFavorites();
   }
 
-  cancel(List<ModelProduct> ims, int i) {
-    List<ModelProduct> getAllList() {
-      return [...GearList, ...GamesList, ...UpcomingGamesList];
-    }
+  void loadFavorites() {
+    setState(() {
+      favList = [...GearList, ...GamesList, ...UpcomingGamesList]
+          .where((item) => item.isFav)
+          .toList();
+    });
   }
 
-  cancelFaviert(
-      List<ModelProduct> nameList,
-      List<ModelProduct> nameList2,
-      int index,
-      ) {
-    if (nameList[index].isFav == true) {
-      setState(() {
-        nameList[index] = nameList[index].copyWith(isFav: false);
-        return print("");
-      });
-    }
+  void removeFavorite(int index) {
+    setState(() {
 
-    if (nameList2[index].isFav == true) {
-      setState(() {
-        nameList2[index] = nameList2[index].copyWith(isFav: false);
-        return print("yass");
-      });
-    }
+      final itemToRemove = favList[index];
+
+
+      for (int i = 0; i < GearList.length; i++) {
+        if (GearList[i].namePrdact == itemToRemove.namePrdact) {
+          GearList[i] = GearList[i].copyWith(isFav: false);
+          break;
+        }
+      }
+
+
+      for (int i = 0; i < GamesList.length; i++) {
+        if (GamesList[i].namePrdact == itemToRemove.namePrdact) {
+          GamesList[i] = GamesList[i].copyWith(isFav: false);
+          break;
+        }
+      }
+
+
+      for (int i = 0; i < UpcomingGamesList.length; i++) {
+        if (UpcomingGamesList[i].namePrdact == itemToRemove.namePrdact) {
+          UpcomingGamesList[i] = UpcomingGamesList[i].copyWith(isFav: false);
+          break;
+        }
+      }
+
+
+      loadFavorites();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    List<ModelProduct> isfavert = getAllList()
-        .where((e) => e.isFav == true)
-        .toList();
+
+
+
 
     return Scaffold(
-      body: isfavert.isNotEmpty
+      body: favList.isNotEmpty
           ? Column(
         children: [
           Expanded(
             child: Container(
               child: ListView.builder(
-                itemCount: isfavert.length,
+                itemCount: favList.length,
                 itemBuilder: (context, index) {
                   return Card(
                     child: ListTile(
-                      title: Text(isfavert[index].namePrdact),
-                      trailing: Image.asset(isfavert[index].photoProdact),
+                      title: Text(favList[index].namePrdact),
+                      trailing: Image.asset(favList[index].photoProdact),
                       leading: InkWell(
-                        onTap: () => cancel(isfavert, index),
+                        onTap: () => removeFavorite(index),
                         child: Icon(Icons.favorite),
                       ),
                     ),
@@ -78,7 +99,7 @@ class _FaviertState extends State<Faviert> {
             "https://lottie.host/feda6d30-9450-4b78-9f01-3a93948365f7/Y5R9QxEdZa.json",
             repeat: true,
           ),
-          Text("NO Iteme Favirte", style: Textstayle.textStyle),
+          Text("NO Iteme Favirte", style: Textstayle.textStyle3),
         ],
       ),
     );

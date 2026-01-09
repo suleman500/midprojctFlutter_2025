@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:orojct/fainalProjct/models/modelParson.dart';
+import 'package:orojct/fainalProjct/stayle/textStayle.dart';
 import 'package:orojct/fainalProjct/widget/costomTextForm.dart';
-import 'package:orojct/midProgct2/Stayle/staylText.dart';
+
 
 
 class Costomcomentparson extends StatelessWidget {
@@ -21,7 +22,7 @@ class Costomcomentparson extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: ListTile(
             leading: CircleAvatar(child: Icon(Icons.person)),
-            title: Text(paerson.personName,style: Stayltext.textStyle.copyWith(fontSize: 12),),
+            title: Text(paerson.personName,style: Textstayle.textStyle3.copyWith(fontSize: 12),),
             subtitle: Text(paerson.comment),
             trailing: Column(
               children: [

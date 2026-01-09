@@ -13,7 +13,7 @@ class Pagesearsch extends StatelessWidget {
         body:  Container(
 
 
-            child: GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisSpacing: 10,mainAxisSpacing: 10,crossAxisCount: 2),itemCount:prodact!.length  ,itemBuilder: (context, index) => Expanded(child: CostomProdact(moGrd:prodact![index],))
+            child: GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1),itemCount:prodact!.length  ,itemBuilder: (context, index) => Expanded(child: CostomProdact(moGrd:prodact![index],))
             )
 
         )

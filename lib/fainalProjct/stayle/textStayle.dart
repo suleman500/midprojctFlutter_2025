@@ -29,5 +29,14 @@ class Textstayle {
 
   );
 
+  static TextStyle textStyle3=TextStyle(
+      fontFamily: "cor",
+      fontSize: 20,
+     fontWeight: FontWeight.bold
+
+
+
+  );
+
 
 }

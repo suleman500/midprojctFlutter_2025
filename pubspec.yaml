@@ -46,6 +46,8 @@ dependencies:
   flutter_snake_navigationbar: ^0.6.1
   flutter_easyloading: ^3.0.5
   readmore: ^3.0.0
+  shared_preferences: ^2.5.4
+  video_player: ^2.10.1
 
 dev_dependencies:
   flutter_test:
@@ -105,9 +107,10 @@ flutter:
        fonts:
         - asset: fonts/Caveat-VariableFont_wght.ttf
 
-     - family: rob
+     - family: cor
        fonts:
-        - asset: fonts/Roboto.ttf
+        - asset: fonts/Cor.ttf
+
 
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700

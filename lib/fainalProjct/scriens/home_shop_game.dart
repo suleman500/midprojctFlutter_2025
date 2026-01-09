@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:orojct/fainalProjct/models/dataLoginAndSingUp.dart';
 import 'package:orojct/fainalProjct/models/slider.dart';
 import 'package:orojct/fainalProjct/scriens/Pagnotifications.dart';
+import 'package:orojct/fainalProjct/scriens/myProfaile.dart';
 import 'package:orojct/fainalProjct/scriens/pageSearsch.dart';
 import 'package:orojct/fainalProjct/scriens/shopping_cart.dart';
 import 'package:orojct/fainalProjct/stayle/shadwoStayle.dart';
@@ -11,14 +13,7 @@ import 'package:orojct/fainalProjct/widget/costomAcionsIcons.dart';
 import 'package:orojct/fainalProjct/widget/costom_games.dart';
 import 'package:orojct/fainalProjct/widget/costom_prodact.dart';
 import 'package:orojct/fainalProjct/widget/costomslider.dart';
-import 'package:orojct/midProgct2/CostomWidgt/costomGridViwe.dart';
-import 'package:orojct/midProgct2/CostomWidgt/costomWidgtPhtoListAds.dart';
-import 'package:orojct/midProgct2/CostomWidgt/costomWidgtTopCatgre.dart';
-import 'package:orojct/midProgct2/Stayle/staylText.dart';
-import 'package:orojct/midProgct2/home_Scrin.dart';
-import 'package:orojct/midProgct2/models/modelnAavioinBar.dart';
-import '../../midProgct2/models/modelGridView.dart';
-import '../../midProgct2/models/modelPhoto.dart';
+
 import '../models/prodactAll.dart';
 import '../stayle/colorStayle.dart';
 import '../models/Categories.dart';
@@ -32,11 +27,16 @@ import 'package:lottie/lottie.dart';
 
 class HomeShopGame extends StatefulWidget {
   @override
-  String? pass;
-  String? emails;
-  String? firstName;
-  String? lastName;
-  HomeShopGame({ this.pass, this.emails,this.firstName,this.lastName});
+  String pass;
+  String emails;
+  String firstName;
+  String lastName;
+
+
+  double? balance;
+
+  HomeShopGame({ required this.pass,required this.emails,required this.firstName,required this.lastName,required  this.balance});
+
   State<HomeShopGame> createState() => _HomepagState();
 }
 
@@ -49,6 +49,7 @@ class _HomepagState extends State<HomeShopGame> {
   bool isCostomProdact = false;
   bool preOder = true;
   bool ggames = true;
+  bool slider=false;
 
   bool showSearchResults = false;
 
@@ -60,6 +61,7 @@ class _HomepagState extends State<HomeShopGame> {
     preOder = false;
     ggames = false;
     filteredItems = List.from(allList);
+    slider=true;
   }
 
   searchProducts(String name) {
@@ -81,6 +83,13 @@ class _HomepagState extends State<HomeShopGame> {
       UpcomingGamesList[x] = UpcomingGamesList[x].copyWith(
         isFav: !UpcomingGamesList[x].isFav,
       );
+      // print(UpcomingGamesList[x].isFav);
+    });
+  }
+
+  isFavrtUProdact(int x) {
+    setState(() {
+      GearList[x] = GearList[x].copyWith(isFav: !GearList[x].isFav);
       // print(UpcomingGamesList[x].isFav);
     });
   }
@@ -108,23 +117,27 @@ class _HomepagState extends State<HomeShopGame> {
           isCostomProdact = true;
           preOder = false;
           ggames = false;
+          slider=true;
           break;
         case 1:
           isCostomGames = false;
           isUpcomingGames = false;
           isCostomProdact = true;
+          slider=false;
           break;
         case 2:
           isCostomGames = true;
           isUpcomingGames = false;
           isCostomProdact = false;
           ggames = true;
+          slider=false;
           break;
         case 3:
           isCostomGames = false;
           isUpcomingGames = true;
           isCostomProdact = false;
           preOder = true;
+          slider=false;
           break;
       }
     });
@@ -153,9 +166,17 @@ class _HomepagState extends State<HomeShopGame> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          ListTile(
-                            title: CircleAvatar(child: Text(widget.firstName!)),
-                             subtitle: Text(widget.emails!),
+                          InkWell(
+                            onTap: () {
+Navigator.push(context, MaterialPageRoute(builder: (context) => Myprofaile(email:widget.emails!, password: widget.pass!, ferstName:widget.firstName!, lastName:widget.lastName!, balance:widget.balance!,),));
+                            },
+
+                            child: ListTile(
+                              title: CircleAvatar(
+                                child: Text(widget.firstName!.substring(0, 3)!),
+                              ),
+                              subtitle: Text(widget.emails!),
+                            ),
                           ),
                         ],
                       ),
@@ -172,10 +193,7 @@ class _HomepagState extends State<HomeShopGame> {
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.03,
                           ),
-                          Costomacionsicons(
-                            icon: Icons.search,
-                            page: Pagnotifications(),
-                          ),
+
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.03,
                           ),
@@ -196,17 +214,17 @@ class _HomepagState extends State<HomeShopGame> {
 
                 child: CarouselSlider(
                   options: CarouselOptions(
-                    //disableCenter: true,
-                    //autoPlay: true,
+                    disableCenter: true,
+                    autoPlay: true,
                     aspectRatio: 0.2,
 
                     animateToClosest: true,
-                    // enlargeCenterPage: true,
-                    //autoPlayCurve: Curves.easeInToLinear,
+                     enlargeCenterPage: true,
+                   // autoPlayCurve: Curves.easeInToLinear,
                     pauseAutoPlayOnTouch: true,
-                    disableCenter: true,
+                   // disableCenter: true,
                     enableInfiniteScroll: true,
-                    autoPlayInterval: Duration(seconds: 2),
+                    autoPlayInterval: Duration(seconds: 5),
                     height: MediaQuery.of(context).size.height * 0.23,
                     viewportFraction: 0.88,
                     onPageChanged: (index, reason) {
@@ -261,7 +279,7 @@ class _HomepagState extends State<HomeShopGame> {
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: categoriesList.length,
-                  //reverse: true,
+                  reverse: true,
                   itemExtent: MediaQuery.of(context).size.width * 0.25,
                   itemBuilder: (context, index) {
                     return costomCatger(
@@ -272,26 +290,41 @@ class _HomepagState extends State<HomeShopGame> {
                 ),
               ),
 
+
+
+
+
+
+
+
+
               isCostomGames
-                  ? Card(
+                  ? Container(
                       child: Align(
                         alignment: Alignment.topLeft,
 
-                        child: SizedBox(
-                          height: MediaQuery.of(context).size.width * 0.10,
-                          width: MediaQuery.of(context).size.width * 0.34,
-                          child: Container(
-                            child: Center(
-                              child: Text(
-                                "Top Games",
-                                style: Textstayle.textStyle2,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Text("Top Games", style: Textstayle.textStyle3),
+
+                              Icon(
+                                Icons.navigate_next_outlined,
+                                shadows: [Shadwostayle.statyl1],
                               ),
-                            ),
+                            ],
                           ),
                         ),
                       ),
                     )
                   : Text(""),
+
+
+
+
+
+
               isCostomGames
                   ? ggames
                         ? Container(
@@ -328,64 +361,131 @@ class _HomepagState extends State<HomeShopGame> {
                                 );
                               },
                             ),
-                          )
-                  : Container(
-                      height: MediaQuery.of(context).size.height * 0.08,
-                      child: CarouselSlider(
-                        options: CarouselOptions(
-                          clipBehavior: Clip.antiAlias,
-                          //disableCenter: true,
-                          autoPlay: true,
+                          ): Container(
+                height: MediaQuery.of(context).size.height * 0.08,
+                width: MediaQuery.of(context).size.width * 0.90,
 
-                          //pageSnapping: true,
-                          // animateToClosest: true,
-                          // enlargeCenterPage: true,
-                          //autoPlayCurve: Curves.easeInToLinear,
-                          // pauseAutoPlayOnTouch: true,
-                          //disableCenter: true,
-                          // enableInfiniteScroll: true,
-                          autoPlayInterval: Duration(seconds: 005),
-                          height: MediaQuery.of(context).size.height * 0.10,
-                          enlargeCenterPage: false,
-                          viewportFraction: 0.2,
-                          aspectRatio: 16 / 4,
-                          onPageChanged: (index, reason) {
-                            setState(() {});
-                          },
-                        ),
 
-                        items: phtosAdss.map((phto) {
-                          return Container(
-                            // decoration: BoxDecoration(borderRadius: BorderRadius.circular(100),border: Border.all(width: 3.0,color:Colors.blue, )),
-                            child: CostomSliderr(phto: phto),
-                          );
-                        }).toList(),
-                      ),
-                    ),
+
+
+
+
+
+
+                child: CarouselSlider(
+                  options: CarouselOptions(
+                    scrollDirection: Axis.vertical,
+                    clipBehavior: Clip.antiAlias,
+                    //disableCenter: true,
+                    autoPlay: true,
+                    pageSnapping: true,
+                    animateToClosest: true,
+                    enlargeCenterPage: true,
+                    autoPlayCurve: Curves.easeInToLinear,
+                    pauseAutoPlayOnTouch: true,
+                    disableCenter: true,
+                    enableInfiniteScroll: true,
+                    autoPlayInterval: Duration(seconds:6 ),
+                    height: MediaQuery.of(context).size.height * 0.10,
+
+                    viewportFraction: 0.90,
+                    aspectRatio: 16 / 4,
+                    onPageChanged: (index, reason) {
+                      setState(() {});
+                    },
+                  ),
+
+                  items: slid.map((phto) {
+                    return Container(
+                      // decoration: BoxDecoration(borderRadius: BorderRadius.circular(100),border: Border.all(width: 3.0,color:Colors.blue, )),
+                      child: CostomSliderr(phto: phto),
+                    );
+                  }).toList(),
+                ),
+              ),
+
+
+           slider?   Container(
+                height: MediaQuery.of(context).size.height * 0.08,
+                width: MediaQuery.of(context).size.width * 0.90,
+
+
+
+
+
+
+
+
+                child: CarouselSlider(
+                  options: CarouselOptions(
+                    scrollDirection: Axis.vertical,
+                    clipBehavior: Clip.antiAlias,
+                    //disableCenter: true,
+                    autoPlay: true,
+                    pageSnapping: true,
+                    animateToClosest: true,
+                    enlargeCenterPage: true,
+                    autoPlayCurve: Curves.easeInToLinear,
+                    pauseAutoPlayOnTouch: true,
+                    disableCenter: true,
+                    enableInfiniteScroll: true,
+                    autoPlayInterval: Duration(seconds:6 ),
+                    height: MediaQuery.of(context).size.height * 0.10,
+
+                    viewportFraction: 0.90,
+                    aspectRatio: 16 / 4,
+                    onPageChanged: (index, reason) {
+                      setState(() {});
+                    },
+                  ),
+
+                  items: slid.map((phto) {
+                    return Container(
+                      // decoration: BoxDecoration(borderRadius: BorderRadius.circular(100),border: Border.all(width: 3.0,color:Colors.blue, )),
+                      child: CostomSliderr(phto: phto),
+                    );
+                  }).toList(),
+                ),
+              ):SizedBox(height: 30,),
+
+
+
 
               isUpcomingGames
-                  ? Card(
+                  ? Container(
                       child: Align(
                         alignment: Alignment.topLeft,
-                        child: SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.04,
-                          width: MediaQuery.of(context).size.width * 0.34,
-                          child: Container(
-                            child: Center(
-                              child: Text(
-                                " Games Soon",
-                                style: Textstayle.textStyle2,
+                        child: Container(
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  "Games Soon",
+                                  style: Textstayle.textStyle3,
+                                ),
                               ),
-                            ),
+                              Icon(
+                                Icons.navigate_next_outlined,
+                                shadows: [Shadwostayle.statyl1],
+                              ),
+                            ],
                           ),
                         ),
                       ),
                     )
-                  : Text(""),
+                  : SizedBox(height: 0.1,),
+
+
+
+            
+
+
+
               isUpcomingGames
                   ? preOder
                         ? Container(
-                            height: MediaQuery.of(context).size.height * 0.30,
+                            height: MediaQuery.of(context).size.height * 0.60,
 
                             child: GridView.builder(
                               gridDelegate:
@@ -402,7 +502,7 @@ class _HomepagState extends State<HomeShopGame> {
                             ),
                           )
                         : Container(
-                            height: MediaQuery.of(context).size.height * 0.15,
+                            height: MediaQuery.of(context).size.height * 0.20,
                             padding: EdgeInsets.all(1),
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
@@ -417,40 +517,47 @@ class _HomepagState extends State<HomeShopGame> {
                               },
                             ),
                           )
-                  : Text(""),
+                  : SizedBox(height: 40,),
+
+
+
+
+
+
+
+
+
 
               isCostomProdact
-                  ? Card(
-                      child: Align(
-                        alignment: Alignment.topLeft,
+                  ? Align(
+                      alignment: Alignment.topLeft,
 
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              height: MediaQuery.of(context).size.width * 0.10,
-                              width: MediaQuery.of(context).size.width * 0.34,
-                              child: Container(
-                                child: Center(
-                                  child: Text(
-                                    "Top Prodact",
-                                    style: Textstayle.textStyle2,
-                                  ),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.width * 0.10,
+                            width: MediaQuery.of(context).size.width * 0.34,
+                            child: Container(
+                              child: Center(
+                                child: Text(
+                                  "Top Prodact",
+                                  style: Textstayle.textStyle3,
                                 ),
                               ),
                             ),
-                            Icon(
-                              Icons.navigate_next_outlined,
-                              shadows: [Shadwostayle.statyl1],
-                            ),
-                          ],
-                        ),
+                          ),
+                          Icon(
+                            Icons.navigate_next_outlined,
+                            shadows: [Shadwostayle.statyl1],
+                          ),
+                        ],
                       ),
                     )
-                  : Text(""),
+                  : SizedBox(height: 20,),
 
               isCostomProdact
                   ? Container(
-                      height: MediaQuery.of(context).size.height * 0.30,
+                      height: MediaQuery.of(context).size.height * 0.60,
                       padding: EdgeInsets.all(1),
                       child: GridView.builder(
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -461,11 +568,14 @@ class _HomepagState extends State<HomeShopGame> {
                         ),
                         itemCount: GearList.length,
                         itemBuilder: (context, index) {
-                          return CostomProdact(moGrd: GearList[index]);
+                          return CostomProdact(
+                            moGrd: GearList[index],
+                            onTa7p: () => isFavrtUProdact(index),
+                          );
                         },
                       ),
                     )
-                  : Text(""),
+                  : SizedBox(height: 80,),
             ],
           ),
         ),

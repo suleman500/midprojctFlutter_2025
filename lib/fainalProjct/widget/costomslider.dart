@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:orojct/fainalProjct/models/slider.dart';
-import 'package:orojct/midProgct2/models/modelPhoto.dart';
+
 
 class CostomSliderr extends StatelessWidget {
   ModelSlider phto;
@@ -10,13 +10,11 @@ class CostomSliderr extends StatelessWidget {
 
     return
 
-       Container(
-        //margin: EdgeInsets.all(8),
-        // width: 150,
-
-
+      ClipRRect(
+        
+borderRadius: BorderRadiusGeometry.circular(20),
         child:
-          // borderRadius: BorderRadius.circular(15),
+         
 
 
              Image.asset(

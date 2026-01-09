@@ -36,10 +36,10 @@ class OrderItem extends StatelessWidget {
             width: MediaQuery.of(context).size.width ,
             height:MediaQuery.of(context).size.height *0.15,
             child: Column(children: [
-              Text("NameProdact :${order.namePrdact}",style:Textstayle.textStyle ,),
-              Text('Locaion :${order.locion}',style:Textstayle.textStyle),
-              Text('USER NAME :${order.name}',style:Textstayle.textStyle),
-              Text('Email :${order.email}',style:Textstayle.textStyle),
+              Text("NameProdact :${order.namePrdact}",style:Textstayle.textStyle3 ,),
+              Text('Locaion :${order.locion}',style:Textstayle.textStyle3),
+              Text('USER NAME :${order.name}',style:Textstayle.textStyle3),
+              Text('Email :${order.email}',style:Textstayle.textStyle3),
 
             ],),
           ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:orojct/midProgct2/models/modelTopCategories.dart';
+
 
 import '../models/Categories.dart';
 import 'package:lottie/lottie.dart';
@@ -37,7 +37,7 @@ class costomCatger extends  StatelessWidget{
                 //SizedBox(height: 5),
                 Text(
                   gatoger.namesTopCate,
-                  style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.027,fontFamily: "rrt1"),
+                  style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.027,fontFamily: "cor",fontWeight:FontWeight.bold),
 
                 ),
               ],

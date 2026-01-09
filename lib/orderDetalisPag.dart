@@ -5,9 +5,9 @@ import 'package:orojct/fainalProjct/stayle/textStayle.dart';
 import 'package:orojct/fainalProjct/widget/costomComentParson.dart';
 import 'package:orojct/fainalProjct/widget/costomTextForm.dart';
 
+import 'fainalProjct/models/dataLoginAndSingUp.dart';
 import 'fainalProjct/models/modelParson.dart';
-import 'midProgct2/Stayle/staylText.dart';
-import 'midProgct2/Stayle/styleDcrion.dart';
+
 import 'package:readmore/readmore.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'dart:math';
@@ -19,8 +19,10 @@ class Orderdetalispag extends StatefulWidget {
   String photoProdact;
   String? discrbion;
 
+  double? balance;
+
   Orderdetalispag(
-      {required this.nameProdact, required this.price, required this.photoProdact, this.discrbion});
+      {required this.nameProdact, required this.price, required this.photoProdact, this.discrbion, this.balance});
 
   @override
   State<Orderdetalispag> createState() => _OrderdetalispagState();
@@ -57,11 +59,17 @@ class _OrderdetalispagState extends State<Orderdetalispag> {
     children: [
     Padding(
     padding: const EdgeInsets.all(8.0),
-    child: Text("5/6",style: Stayltext.textStyle.copyWith(fontSize: 13)),
+    child: Text("5/6",style: Textstayle.textStyle3.copyWith(fontSize: 13)),
     ),
     Padding(
     padding: const EdgeInsets.all(8.0),
-    child: Text("JOR${widget.price.toString()}",style:Stayltext.textStyle.copyWith(fontSize: 15) ,),
+    child: Column(
+      children: [
+        Text("JOR${widget.price.toString()}",style:Textstayle.textStyle3.copyWith(fontSize: 15) ,),
+        
+        Text("MY balance : ${widget.balance}")
+      ],
+    ),
     ),
 
     ],),
@@ -71,7 +79,7 @@ class _OrderdetalispagState extends State<Orderdetalispag> {
     child: Row(
     mainAxisAlignment: MainAxisAlignment.start,
     children: [
-    Text("4.88",style:Stayltext.textStyle.copyWith(fontSize: 14),),
+    Text("4.88",style:Textstayle.textStyle3.copyWith(fontSize: 14),),
     SizedBox(width: 2,),
     Icon(Icons.star,color: Colors.amber,size: 15,)
     ],),
@@ -88,8 +96,8 @@ class _OrderdetalispagState extends State<Orderdetalispag> {
     trimCollapsedText:"More" ,
 
     trimExpandedText:"...Less",
-    lessStyle:Stayltext.textStyle.copyWith(fontSize: 15) ,
-    moreStyle:Stayltext.textStyle.copyWith(fontSize: 15) ,
+    lessStyle:Textstayle.textStyle3.copyWith(fontSize: 15) ,
+    moreStyle:Textstayle.textStyle3.copyWith(fontSize: 15) ,
 
     ),
     //subtitle: Text(discrbion!),
@@ -108,7 +116,7 @@ class _OrderdetalispagState extends State<Orderdetalispag> {
                 Align(
                     alignment: AlignmentGeometry.topLeft,
                     child: CircleAvatar(child: Icon(Icons.person),)),
-                Expanded(child: CustomTextField(label: Icons.hdr_off_select_rounded, hint: "Comeent", helper: "",control:comment ,onSaved: (u) {
+                Expanded(child: CustomTextField(label: Icons.comment, hint: "Comeent",obscureText: false ,helper: "",control:comment ,onSaved: (u) {
 
                 setState(() {
                   u=  comment.text;
@@ -144,7 +152,7 @@ onTap: () {
           padding: const EdgeInsets.only(right: 15,left: 20),
           child: ListTile(
               leading: CircleAvatar(child: Icon(Icons.person)),
-              title: Text("ali",style: Stayltext.textStyle.copyWith(fontSize: 12),),
+              title: Text("My",style:Textstayle.textStyle3.copyWith(fontSize: 12),),
               subtitle: Text(comment.text),
               trailing: Column(
                 children: [
@@ -154,7 +162,7 @@ onTap: () {
               ),
           ),
         ),
-      ):Text("data"),
+      ):Text(""),
 
 
 
@@ -178,7 +186,7 @@ onTap: () {
 
     bottomSheet:InkWell(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => Payprodact(photoProdact: widget.photoProdact, namePrdact:widget.nameProdact),));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Payprodact(photoProdact: widget.photoProdact, namePrdact:widget.nameProdact,),));
       },
 
       child: Card(

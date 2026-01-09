@@ -12,3 +12,10 @@ List<ModelSlider> phtosAdss = [
   ModelSlider(namePhtoos: "images/GamV4.jpg"),
   ModelSlider(namePhtoos: "images/San.jpeg"),
 ];
+List<ModelSlider> slid=[
+  
+  
+  ModelSlider(namePhtoos:"images/sled1.jpeg" ),
+  ModelSlider(namePhtoos:"images/slid2.jpeg" ),
+
+];

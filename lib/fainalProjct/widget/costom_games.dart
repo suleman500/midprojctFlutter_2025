@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:orojct/fainalProjct/models/dataLoginAndSingUp.dart';
 import 'package:orojct/fainalProjct/models/prodactAll.dart';
 import 'package:orojct/fainalProjct/widget/costom_discrbionGames.dart';
 import 'package:orojct/orderDetalisPag.dart';
@@ -9,7 +10,8 @@ class CostomGames extends StatefulWidget {
   VoidCallback? onTa7p;
   bool? ifvi;
 
-  CostomGames({required this.games, this.onTa7p, this.ifvi});
+
+  CostomGames({required this.games, this.onTa7p, this.ifvi,});
 
   @override
   State<CostomGames> createState() => _CostomGamesState();
@@ -37,6 +39,7 @@ class _CostomGamesState extends State<CostomGames> {
                       photoProdact: widget.games.photoProdact,
                       price: widget.games.price,
                       discrion: widget.games.discrbion!,
+
                     ),
                   );
                 },
@@ -56,19 +59,24 @@ class _CostomGamesState extends State<CostomGames> {
                     photoProdact: widget.games.photoProdact,
                     price: widget.games.price,
                     discrbion: widget.games.discrbion,
+
+
                   ),
                 ),
               );
             },
             child: Column(
               children: [
+
+                Align(
+                    child: Container(child: widget.games.isFav ? Icon(Icons.favorite, size: 26, color: Colors.red): Icon(Icons.favorite_border, size: 26) ,),
+                    alignment: AlignmentGeometry.topRight),
+
                 Expanded(
-                  child: Container(
-                    width: double.infinity,
-                    child: Image.asset(
-                      widget.games.photoProdact,
-                      fit: BoxFit.contain,
-                    ),
+
+                  child: Image.asset(
+                    widget.games.photoProdact,
+                    fit: BoxFit.contain,
                   ),
                 ),
                 SizedBox(height: 5),
@@ -79,32 +87,22 @@ class _CostomGamesState extends State<CostomGames> {
                     fontWeight: FontWeight.bold,
                   ),
                   textAlign: TextAlign.center,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
+
+
                 ),
                 SizedBox(height: 5),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Colors.blue,
-                      ),
-                      child: Text(
-                        "شراء",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: MediaQuery.of(context).size.width * 0.028,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+
+
+
                     SizedBox(width: 8),
-                    widget.games.isFav
-                        ? Icon(Icons.favorite, size: 18, color: Colors.red)
-                        : Icon(Icons.favorite_border, size: 18)
+
+
+
+
+
                   ],
                 ),
                 SizedBox(height: 5),
