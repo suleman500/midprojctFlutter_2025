@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "696960208526",
+    "project_id": "flutt3",
+    "storage_bucket": "flutt3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:696960208526:android:92d4d7eb184b03222fc3df",
+        "android_client_info": {
+          "package_name": "com.example.fluttr22"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "696960208526-p71dlj01qfhvgosbvc1quj5lcr7rk5te.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fluttr22",
+            "certificate_hash": "ba928b614411b5e7175ac3197494c69bd306d9a2"
+          }
+        },
+        {
+          "client_id": "696960208526-i1t2s25rpld0op2qshcghrp468tmnlia.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBd2m_XAgj0BH_IoabzoQFIyGj6LMLyYoA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "696960208526-i1t2s25rpld0op2qshcghrp468tmnlia.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "696960208526-bdi1ctc6i46ikbfkqemvh7ca6uj9tb20.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.fluttr22"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:696960208526:android:259db68ad9157eab2fc3df",
+        "android_client_info": {
+          "package_name": "com.example.orojct"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "696960208526-i1t2s25rpld0op2qshcghrp468tmnlia.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBd2m_XAgj0BH_IoabzoQFIyGj6LMLyYoA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "696960208526-i1t2s25rpld0op2qshcghrp468tmnlia.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "696960208526-bdi1ctc6i46ikbfkqemvh7ca6uj9tb20.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.fluttr22"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
