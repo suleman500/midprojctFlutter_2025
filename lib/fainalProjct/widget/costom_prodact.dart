@@ -2,124 +2,113 @@ import 'package:flutter/material.dart';
 import 'package:orojct/fainalProjct/models/prodactAll.dart';
 import 'package:orojct/orderDetalisPag.dart';
 
-class CostomProdact extends StatelessWidget {
+class CostomProdact extends StatefulWidget {
   ModelProduct moGrd;
-  bool? isFav=false;
+  bool isFav;
   VoidCallback? onTa7p;
   double? balance;
-  CostomProdact({required this.moGrd,this.isFav,this.onTa7p, this.balance});
+
+  CostomProdact({
+    required this.moGrd,
+    required this.isFav,
+    this.onTa7p,
+    this.balance
+  });
 
   @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onDoubleTap: onTa7p,
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Orderdetalispag(
-              nameProdact: moGrd.namePrdact,
-              photoProdact: moGrd.photoProdact,
-              price: moGrd.price,
-              discrbion: moGrd.discrbion,
-balance:balance ,
-            ),
-          ),
-        );
-      },
-      child: Container(
-        height: MediaQuery.of(context).size.height * 0.28,
-        width: MediaQuery.of(context).size.width * 0.42,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
+  State<CostomProdact> createState() => _CostomProdactState();
+}
 
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Align(
-              alignment: Alignment.topRight,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child:  Align(
-                    child: moGrd.isFav ? Icon(Icons.favorite, size: 26, color: Colors.red): Icon(Icons.favorite_border, size: 26),
-                    alignment: AlignmentGeometry.topRight),
+class _CostomProdactState extends State<CostomProdact> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.28,
+      width: MediaQuery.of(context).size.width * 0.42,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+
+          InkWell(
+           onTap: () =>widget.onTa7p ,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Align(
+                child: widget.isFav
+                    ? Icon(Icons.favorite, size: 26, color: Colors.red)
+                    : Icon(Icons.favorite_border, size: 26),
+                alignment: Alignment.topRight,
               ),
             ),
+          ),
 
-            Expanded(
-              flex: 3,
-              child: Container(
 
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  image: DecorationImage(
-                    image: AssetImage(moGrd.photoProdact),
-                    fit: BoxFit.cover,
-                  ),
+          Flexible(
+            flex: 3,
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 8),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                image: DecorationImage(
+                  image: AssetImage(widget.moGrd.photoProdact),
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
+          ),
 
-            Expanded(
-              flex: 2,
-              child: Padding(
-                padding: EdgeInsets.all(8),
-                child: Column(
+
+          Padding(
+            padding: EdgeInsets.all(8),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.moGrd.namePrdact,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: "rrt1",
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      moGrd.namePrdact,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "rrt1",
-
-                      ),
-
-                    ),
-
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                              size: 16,
-                            ),
-                            SizedBox(width: 4),
-                            Text(
-                              "5.0",
-                              style: TextStyle(
-                                color: Colors.black45,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ],
-                        ),
-
+                        Icon(Icons.star, color: Colors.amber, size: 16),
+                        SizedBox(width: 4),
                         Text(
-                          "\$${moGrd.price}",
+                          "5.0",
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
-
-                            fontSize: 10,
-
-                            color: Colors.black54,
+                            color: Colors.black45,
+                            fontSize: 12,
                           ),
                         ),
                       ],
                     ),
+                    Text(
+                      "\$${widget.moGrd.price}",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10,
+                        color: Colors.black54,
+                      ),
+                    ),
                   ],
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

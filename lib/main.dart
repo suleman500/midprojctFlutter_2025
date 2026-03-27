@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:orojct/fainalProjct/scriens/firstPage.dart';
-import 'package:orojct/fainalProjct/scriens/loginAccont.dart';
-import 'package:orojct/fainalProjct/scriens/splashScreen.dart';
+
+
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,6 +13,7 @@ import 'fainalProjct/scriens/home_shop_game.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'fainalProjct/scriens/splashScreen.dart';
 import 'firebase_options.dart';
 
 void main() async {

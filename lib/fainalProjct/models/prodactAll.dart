@@ -7,14 +7,18 @@ class ModelProduct {
   final double price;
   final bool isFav;
   final String? discrbion;
+  final String type;
+  final String? id;
 
   ModelProduct({
     required this.namePrdact,
     required this.spuNames,
     required this.photoProdact,
     this.price = 0,
-    required this.isFav ,
+    required this.isFav,
     this.discrbion,
+    required this.type,
+     this.id,
   });
 
   ModelProduct copyWith({
@@ -24,20 +28,51 @@ class ModelProduct {
     double? price,
     bool? isFav,
     String? discrbion,
+    String? type,
+    String? id,
   }) {
     return ModelProduct(
-        namePrdact: namePrdact ?? this.namePrdact,
-        spuNames: spuNames ?? this.spuNames,
-        photoProdact: photoProdact ?? this.photoProdact,
-        price: price ?? this.price,
-        isFav: isFav ?? this.isFav,
-        discrbion: discrbion ?? this.discrbion
+      namePrdact: namePrdact ?? this.namePrdact,
+      spuNames: spuNames ?? this.spuNames,
+      photoProdact: photoProdact ?? this.photoProdact,
+      price: price ?? this.price,
+      isFav: isFav ?? this.isFav,
+      discrbion: discrbion ?? this.discrbion,
+      type: type ?? this.type,
+      id: id ?? this.id,
     );
   }
 
+  Map<String, dynamic> toMap() {
+    return {
+      'namePrdact': namePrdact,
+      'spuNames': spuNames,
+      'photoProdact': photoProdact,
+      'price': price,
+      'isFav': isFav,
+      'discrbion': discrbion,
+      'type': type,
 
+    };
+  }
+
+  factory ModelProduct.fromMap(Map<String, dynamic> map, String docId) {
+    return ModelProduct(
+      namePrdact: map['namePrdact'],
+      spuNames: map['spuNames'],
+      photoProdact: map['photoProdact'],
+      isFav: map['isFav'],
+      type: map['type'],
+      price: map['price']?.toDouble() ?? 0,
+      discrbion: map['discrbion'],
+      id: docId,
+    );
+  }
 }
-List<ModelProduct> GearList = [
+
+/*
+List<ModelProduct> allList = [
+
   ModelProduct(
     namePrdact: "PS5",
     spuNames: "Gaming Consoles",
@@ -45,6 +80,7 @@ List<ModelProduct> GearList = [
     price: 499.99,
     isFav: false,
     discrbion: "PlayStation 5 next-gen console with fast processor and 4K support",
+    type: "product",
   ),
   ModelProduct(
     namePrdact: "Xbox X",
@@ -53,6 +89,7 @@ List<ModelProduct> GearList = [
     price: 499.99,
     isFav: false,
     discrbion: "Xbox Series X with high performance and cloud gaming support",
+    type: "product",
   ),
   ModelProduct(
     namePrdact: "Nintendo Switch",
@@ -61,6 +98,7 @@ List<ModelProduct> GearList = [
     price: 299.99,
     isFav: false,
     discrbion: "Nintendo Switch can be played on TV or as a portable device",
+    type: "product",
   ),
   ModelProduct(
     namePrdact: "Headset",
@@ -69,6 +107,7 @@ List<ModelProduct> GearList = [
     price: 79.99,
     isFav: false,
     discrbion: "Gaming headset with high-quality microphone, comfortable for long use",
+    type: "product",
   ),
   ModelProduct(
     namePrdact: "Keyboard",
@@ -77,6 +116,7 @@ List<ModelProduct> GearList = [
     price: 129.99,
     isFav: false,
     discrbion: "Mechanical gaming keyboard with RGB lighting",
+    type: "product",
   ),
   ModelProduct(
     namePrdact: "Mouse",
@@ -85,6 +125,7 @@ List<ModelProduct> GearList = [
     price: 59.99,
     isFav: false,
     discrbion: "Gaming mouse with 16000 DPI and 6 programmable buttons",
+    type: "product",
   ),
   ModelProduct(
     namePrdact: "Gaming Chair",
@@ -93,6 +134,7 @@ List<ModelProduct> GearList = [
     price: 249.99,
     isFav: false,
     discrbion: "Comfortable gaming chair with back support and armrests",
+    type: "product",
   ),
   ModelProduct(
     namePrdact: "Monitor",
@@ -101,6 +143,7 @@ List<ModelProduct> GearList = [
     price: 299.99,
     isFav: false,
     discrbion: "144Hz gaming monitor with 1ms response time",
+    type: "product",
   ),
   ModelProduct(
     namePrdact: "Gift Cards",
@@ -109,6 +152,7 @@ List<ModelProduct> GearList = [
     price: 50.00,
     isFav: false,
     discrbion: "50 gaming gift card for PlayStation, Xbox, or Steam",
+    type: "product",
   ),
   ModelProduct(
     namePrdact: "Controller",
@@ -117,6 +161,7 @@ List<ModelProduct> GearList = [
     price: 69.99,
     isFav: false,
     discrbion: "Wireless gaming controller with vibration feedback",
+    type: "product",
   ),
   ModelProduct(
     namePrdact: "Webcam",
@@ -125,6 +170,7 @@ List<ModelProduct> GearList = [
     price: 89.99,
     isFav: false,
     discrbion: "1080p webcam for streaming and video calls",
+    type: "product",
   ),
   ModelProduct(
     namePrdact: "Microphone",
@@ -133,6 +179,7 @@ List<ModelProduct> GearList = [
     price: 99.99,
     isFav: false,
     discrbion: "Studio quality microphone for streaming and recording",
+    type: "product",
   ),
   ModelProduct(
     namePrdact: "PS4",
@@ -141,6 +188,7 @@ List<ModelProduct> GearList = [
     price: 299.99,
     isFav: false,
     discrbion: "PlayStation 4 console with 1TB storage",
+    type: "product",
   ),
   ModelProduct(
     namePrdact: "Speakers",
@@ -149,6 +197,7 @@ List<ModelProduct> GearList = [
     price: 149.99,
     isFav: false,
     discrbion: "2.1 gaming speakers with subwoofer for immersive sound",
+    type: "product",
   ),
   ModelProduct(
     namePrdact: "Backpack",
@@ -157,10 +206,10 @@ List<ModelProduct> GearList = [
     price: 49.99,
     isFav: false,
     discrbion: "Gaming backpack with laptop compartment and cable organizers",
+    type: "product",
   ),
-];
 
-List<ModelProduct> GamesList = [
+  // ========== الألعاب التوب (type: "top_game") ==========
   ModelProduct(
     namePrdact: "Cyberpunk 2077",
     spuNames: "PC, PlayStation 5",
@@ -168,6 +217,7 @@ List<ModelProduct> GamesList = [
     price: 59.99,
     isFav: false,
     discrbion: "An action-adventure RPG set in the dystopian future of Night City. Explore a massive open world with deep character customization, hacking abilities, and a gripping story about technology and humanity.",
+    type: "top_game",
   ),
   ModelProduct(
     namePrdact: "Last of Us II",
@@ -176,6 +226,7 @@ List<ModelProduct> GamesList = [
     price: 69.99,
     isFav: false,
     discrbion: "A powerful narrative-driven game set in a post-apocalyptic world. Experience intense survival gameplay, emotional storytelling, and complex characters in this critically acclaimed sequel.",
+    type: "top_game",
   ),
   ModelProduct(
     namePrdact: "Halo Infinite",
@@ -184,6 +235,7 @@ List<ModelProduct> GamesList = [
     price: 59.99,
     isFav: false,
     discrbion: "Master Chief returns in this epic sci-fi shooter. Features an open-world environment, classic Halo combat, and a continuation of the iconic story in the Halo universe.",
+    type: "top_game",
   ),
   ModelProduct(
     namePrdact: "Elden Ring",
@@ -192,6 +244,7 @@ List<ModelProduct> GamesList = [
     price: 59.99,
     isFav: false,
     discrbion: "From the creators of Dark Souls comes this open-world fantasy RPG. Explore a vast, interconnected world filled with challenging enemies, deep lore, and rewarding exploration.",
+    type: "top_game",
   ),
   ModelProduct(
     namePrdact: "FIFA 24",
@@ -200,6 +253,7 @@ List<ModelProduct> GamesList = [
     price: 69.99,
     isFav: false,
     discrbion: "The latest installment in the world's most popular football simulation. Features updated teams, enhanced graphics, new gameplay mechanics, and multiple game modes including Career and Ultimate Team.",
+    type: "top_game",
   ),
   ModelProduct(
     namePrdact: "God of War",
@@ -208,6 +262,7 @@ List<ModelProduct> GamesList = [
     price: 69.99,
     isFav: false,
     discrbion: "Kratos and Atreus continue their journey through Norse mythology. Features visceral combat, a compelling father-son story, and stunning visuals set across the Nine Realms.",
+    type: "top_game",
   ),
   ModelProduct(
     namePrdact: "Call of Duty",
@@ -216,6 +271,7 @@ List<ModelProduct> GamesList = [
     price: 69.99,
     isFav: false,
     discrbion: "The next chapter in the Modern Warfare series. Includes a cinematic single-player campaign, extensive multiplayer modes, and cooperative Zombies gameplay with modern graphics and mechanics.",
+    type: "top_game",
   ),
   ModelProduct(
     namePrdact: "Zelda",
@@ -224,6 +280,7 @@ List<ModelProduct> GamesList = [
     price: 59.99,
     isFav: false,
     discrbion: "Link returns to Hyrule in this expansive sequel to Breath of the Wild. Features new abilities, sky islands to explore, and deep physics-based puzzles in a massive open world.",
+    type: "top_game",
   ),
   ModelProduct(
     namePrdact: "Starfield",
@@ -232,6 +289,7 @@ List<ModelProduct> GamesList = [
     price: 69.99,
     isFav: false,
     discrbion: "Bethesda's first new universe in 25 years. Explore over 1,000 planets, engage in space combat, and create your own story in this epic science-fiction role-playing adventure.",
+    type: "top_game",
   ),
   ModelProduct(
     namePrdact: "Spider-Man 3",
@@ -240,6 +298,7 @@ List<ModelProduct> GamesList = [
     price: 69.99,
     isFav: false,
     discrbion: "Swing through a detailed recreation of New York City as Spider-Man. Features enhanced web-swinging mechanics, new villains, and an expanded story with multiple playable characters.",
+    type: "top_game",
   ),
   ModelProduct(
     namePrdact: "Assassin's Creed",
@@ -248,6 +307,7 @@ List<ModelProduct> GamesList = [
     price: 49.99,
     isFav: false,
     discrbion: "Return to the series' roots with this stealth-focused adventure set in 9th-century Baghdad. Features parkour, assassination contracts, and a narrative-driven experience about becoming an assassin.",
+    type: "top_game",
   ),
   ModelProduct(
     namePrdact: "Forza Horizon 5",
@@ -256,6 +316,7 @@ List<ModelProduct> GamesList = [
     price: 59.99,
     isFav: false,
     discrbion: "Race across a beautiful open world set in Mexico. Features over 500 cars, dynamic seasons, and endless racing events in one of the most visually stunning racing games ever made.",
+    type: "top_game",
   ),
   ModelProduct(
     namePrdact: "Minecraft",
@@ -264,6 +325,7 @@ List<ModelProduct> GamesList = [
     price: 29.99,
     isFav: false,
     discrbion: "The ultimate sandbox building game. Explore infinite worlds, gather resources, craft tools, and build anything you can imagine in both creative and survival modes with friends.",
+    type: "top_game",
   ),
   ModelProduct(
     namePrdact: "GTA V",
@@ -272,6 +334,7 @@ List<ModelProduct> GamesList = [
     price: 39.99,
     isFav: false,
     discrbion: "Experience the massive open world of Los Santos and Blaine County. Play as three unique characters in a story of crime and ambition, or explore the continuously updated GTA Online multiplayer world.",
+    type: "top_game",
   ),
   ModelProduct(
     namePrdact: "Resident Evil 4",
@@ -280,9 +343,10 @@ List<ModelProduct> GamesList = [
     price: 59.99,
     isFav: false,
     discrbion: "A complete reimagining of the classic survival horror game. Features modernized controls, stunning graphics, expanded story elements, and intense combat against terrifying enemies.",
+    type: "top_game",
   ),
-];
-List<ModelProduct> UpcomingGamesList = [
+
+  // ========== الألعاب القادمة (type: "soon_game") ==========
   ModelProduct(
     namePrdact: "GTA VI",
     spuNames: "PlayStation 5, Xbox Series X",
@@ -290,6 +354,7 @@ List<ModelProduct> UpcomingGamesList = [
     price: 79.99,
     isFav: false,
     discrbion: "The next chapter in the Grand Theft Auto series set in a new open-world location",
+    type: "soon_game",
   ),
   ModelProduct(
     namePrdact: "Elder Scrolls VI",
@@ -298,6 +363,7 @@ List<ModelProduct> UpcomingGamesList = [
     price: 69.99,
     isFav: false,
     discrbion: "New fantasy RPG adventure in the Elder Scrolls universe from Bethesda",
+    type: "soon_game",
   ),
   ModelProduct(
     namePrdact: "Fable",
@@ -306,6 +372,7 @@ List<ModelProduct> UpcomingGamesList = [
     price: 59.99,
     isFav: false,
     discrbion: "Revival of the beloved fantasy RPG series with new story and characters",
+    type: "soon_game",
   ),
   ModelProduct(
     namePrdact: "Final Fantasy XVI",
@@ -314,6 +381,7 @@ List<ModelProduct> UpcomingGamesList = [
     price: 69.99,
     isFav: false,
     discrbion: "Latest installment in the Final Fantasy series with action-RPG combat",
+    type: "soon_game",
   ),
   ModelProduct(
     namePrdact: "Hollow Knight",
@@ -322,6 +390,7 @@ List<ModelProduct> UpcomingGamesList = [
     price: 39.99,
     isFav: false,
     discrbion: "Sequel to the popular metroidvania game with new areas and challenges",
+    type: "soon_game",
   ),
   ModelProduct(
     namePrdact: "Star Wars",
@@ -330,6 +399,7 @@ List<ModelProduct> UpcomingGamesList = [
     price: 69.99,
     isFav: false,
     discrbion: "New Star Wars action-adventure game with original story and characters",
+    type: "soon_game",
   ),
   ModelProduct(
     namePrdact: "Avowed",
@@ -338,6 +408,7 @@ List<ModelProduct> UpcomingGamesList = [
     price: 59.99,
     isFav: false,
     discrbion: "First-person fantasy RPG set in the Pillars of Eternity universe",
+    type: "soon_game",
   ),
   ModelProduct(
     namePrdact: "Suicide Squad",
@@ -346,6 +417,7 @@ List<ModelProduct> UpcomingGamesList = [
     price: 69.99,
     isFav: false,
     discrbion: "Suicide Squad: Kill the Justice League action shooter game",
+    type: "soon_game",
   ),
   ModelProduct(
     namePrdact: "Persona 6",
@@ -354,6 +426,7 @@ List<ModelProduct> UpcomingGamesList = [
     price: 59.99,
     isFav: false,
     discrbion: "Next mainline entry in the Persona JRPG series with new cast",
+    type: "soon_game",
   ),
   ModelProduct(
     namePrdact: "Dragon Age",
@@ -362,10 +435,6 @@ List<ModelProduct> UpcomingGamesList = [
     price: 69.99,
     isFav: false,
     discrbion: "Dragon Age: Dreadwolf - New chapter in the epic fantasy RPG series",
+    type: "soon_game",
   ),
-];
-List<ModelProduct>allList=[
-  ...GearList,
-  ... GamesList,
-  ... UpcomingGamesList
-];
+];*/

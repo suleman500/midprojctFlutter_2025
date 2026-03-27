@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:orojct/fainalProjct/models/prodactAll.dart';
 
 import 'package:orojct/fainalProjct/stayle/textStayle.dart';
+import 'package:orojct/fainalProjct/widget/costom_games.dart';
 
 class Faviert extends StatefulWidget {
   @override
@@ -10,98 +13,63 @@ class Faviert extends StatefulWidget {
 }
 
 class _FaviertState extends State<Faviert> {
-  List<ModelProduct> favList = [];
+ // List<ModelProduct> favList = allList.where((item) => item.isFav == true).toList();
 
   @override
   void initState() {
     super.initState();
-    loadFavorites();
+
   }
 
-  void loadFavorites() {
-    setState(() {
-      favList = [...GearList, ...GamesList, ...UpcomingGamesList]
-          .where((item) => item.isFav)
-          .toList();
-    });
-  }
-
-  void removeFavorite(int index) {
-    setState(() {
-
-      final itemToRemove = favList[index];
 
 
-      for (int i = 0; i < GearList.length; i++) {
-        if (GearList[i].namePrdact == itemToRemove.namePrdact) {
-          GearList[i] = GearList[i].copyWith(isFav: false);
-          break;
-        }
-      }
-
-
-      for (int i = 0; i < GamesList.length; i++) {
-        if (GamesList[i].namePrdact == itemToRemove.namePrdact) {
-          GamesList[i] = GamesList[i].copyWith(isFav: false);
-          break;
-        }
-      }
-
-
-      for (int i = 0; i < UpcomingGamesList.length; i++) {
-        if (UpcomingGamesList[i].namePrdact == itemToRemove.namePrdact) {
-          UpcomingGamesList[i] = UpcomingGamesList[i].copyWith(isFav: false);
-          break;
-        }
-      }
-
-
-      loadFavorites();
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
 
 
-
+    String uid=  FirebaseAuth.instance.currentUser!.uid;
 
     return Scaffold(
-      body: favList.isNotEmpty
-          ? Column(
-        children: [
-          Expanded(
-            child: Container(
-              child: ListView.builder(
-                itemCount: favList.length,
-                itemBuilder: (context, index) {
-                  return Card(
-                    child: ListTile(
-                      title: Text(favList[index].namePrdact),
-                      trailing: Image.asset(favList[index].photoProdact),
-                      leading: InkWell(
-                        onTap: () => removeFavorite(index),
-                        child: Icon(Icons.favorite),
-                      ),
+      body: StreamBuilder(
+          stream: FirebaseFirestore.instance
+              .collection('userr').doc(uid).collection("faiv")
+              .snapshots(),
+          builder: (context, snapshotfavir) {
+            if (snapshotfavir.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            }
+            else if (!snapshotfavir.hasData || snapshotfavir.data!.docs.isEmpty) {
+              return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    LottieBuilder.network(
+                      "https://lottie.host/feda6d30-9450-4b78-9f01-3a93948365f7/Y5R9QxEdZa.json",
                     ),
-                  );
-                },
-              ),
-            ),
-          ),
-        ],
-      )
-          : Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          LottieBuilder.network(
-            "https://lottie.host/feda6d30-9450-4b78-9f01-3a93948365f7/Y5R9QxEdZa.json",
-            repeat: true,
-          ),
-          Text("NO Iteme Favirte", style: Textstayle.textStyle3),
-        ],
+                    Text(
+                      "NO Requests",
+                      style: Textstayle.textStyle,
+                    ),
+                  ]
+                    );
+            }
+            else {
+
+              final prodactfiv=snapshotfavir.data!.docs.map((e) => ModelProduct.fromMap(e.data(), e.id),).where((l) =>l.isFav==true ,).toList();
+
+              return ListView.builder(itemCount:prodactfiv.length ,itemBuilder:(context, index) {
+                return CostomGames(games: prodactfiv[index],onTa7p: () {
+
+                },);
+              },);
+            }
+          }
       ),
+
+
+
+
+
     );
   }
 }

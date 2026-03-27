@@ -5,19 +5,28 @@ import 'package:orojct/fainalProjct/widget/costom_discrbionGames.dart';
 import 'package:orojct/orderDetalisPag.dart';
 import 'package:page_transition/page_transition.dart';
 
-class CostomGames extends StatefulWidget {
+class Costomprodactadmein extends StatefulWidget {
   ModelProduct games;
   VoidCallback? onTa7p;
   bool? ifvi;
+  IconData? actionIcon;
+  Color? iconColor;
+  VoidCallback? onIconTap;
 
-
-  CostomGames({required this.games, this.onTa7p, this.ifvi,});
+  Costomprodactadmein({
+    required this.games,
+    this.onTa7p,
+    this.ifvi,
+    this.actionIcon,
+    this.iconColor,
+    this.onIconTap,
+  });
 
   @override
-  State<CostomGames> createState() => _CostomGamesState();
+  State<Costomprodactadmein> createState() => _CostomprodactadmeinState();
 }
 
-class _CostomGamesState extends State<CostomGames> {
+class _CostomprodactadmeinState extends State<Costomprodactadmein> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,20 +37,23 @@ class _CostomGamesState extends State<CostomGames> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-
-              InkWell(
-                onTap: widget.onTa7p ,
-                child: Container(child: widget.games.isFav ? Icon(Icons.favorite, size: 26, color: Colors.red): Icon(Icons.favorite_border, size: 26) ,),
-              ),
-
+                InkWell(
+                  onTap: widget.onIconTap,
+                  child: Container(
+                    child: Icon(
+                      widget.actionIcon,
+                      size: 26,
+                      color: widget.iconColor ?? Colors.red,
+                    ),
+                  ),
+                ),
               Expanded(
-
                 child: Image.asset(
                   widget.games.photoProdact,
                   fit: BoxFit.contain,
                 ),
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Text(
                 widget.games.namePrdact,
                 style: TextStyle(
@@ -49,25 +61,15 @@ class _CostomGamesState extends State<CostomGames> {
                   fontWeight: FontWeight.bold,
                 ),
                 textAlign: TextAlign.center,
-
-
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-
-
-
-                  SizedBox(width: 8),
-
-
-
-
-
+                  const SizedBox(width: 8),
                 ],
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Text(
                 "${widget.games.price.toString()}\$",
                 style: TextStyle(
