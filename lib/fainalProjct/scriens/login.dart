@@ -60,14 +60,6 @@ class _LoginaccontState extends State<Loginaccont> {
               MaterialPageRoute(builder: (context) => Firstpage()),
             );
 
-
-
-
-
-
-
-
-
         }
       }
     }

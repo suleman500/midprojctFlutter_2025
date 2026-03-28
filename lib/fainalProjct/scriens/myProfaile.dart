@@ -3,19 +3,12 @@ import 'package:orojct/fainalProjct/models/dataLoginAndSingUp.dart';
 import 'package:orojct/fainalProjct/stayle/textStayle.dart';
 
 class Myprofaile extends StatelessWidget {
-  String email;
-  String password;
-  String ferstName;
-  String lastName;
-  double balance;
 
+  Dataloginandsingup profil;
 
   Myprofaile({
-    required this.email,
-    required this.password,
-    required this.ferstName,
-    required this.lastName,
-    required this.balance,
+
+    required this.profil,
 
   });
 
@@ -55,7 +48,7 @@ class Myprofaile extends StatelessWidget {
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         SizedBox(width: 10),
-                        Text(ferstName!),
+                        Text(profil.ferstName),
                       ],
                     ),
                     SizedBox(height: 10),
@@ -69,7 +62,7 @@ class Myprofaile extends StatelessWidget {
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         SizedBox(width: 10),
-                        Text(lastName!),
+                        Text(profil.lastName),
                       ],
                     ),
                     SizedBox(height: 10),
@@ -83,7 +76,7 @@ class Myprofaile extends StatelessWidget {
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         SizedBox(width: 10),
-                        Text(email!),
+                        Text(profil.emmail),
                       ],
                     ),
                     SizedBox(height: 10),
@@ -93,12 +86,12 @@ class Myprofaile extends StatelessWidget {
                         Icon(Icons.lock, color: Colors.blue),
                         SizedBox(width: 10),
                         Text(
-                          "Password:",
+                          "Password:${profil.password}",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         SizedBox(width: 10),
                         Text("********"),
-                        Text("balance : ${balance!}")
+                        Text("balance : ${profil.balance!}")
                       ],
                     ),
                   ],

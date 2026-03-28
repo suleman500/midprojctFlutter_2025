@@ -6,6 +6,7 @@ class Dataloginandsingup {
   String emmail;
   String password;
   double balance;
+  final String? id;
 
   Dataloginandsingup({
     required this.ferstName,
@@ -13,6 +14,7 @@ class Dataloginandsingup {
     required this.emmail,
     required this.password,
     required this.balance,
+    this.id
   });
 
   Dataloginandsingup copywith({
@@ -21,6 +23,7 @@ class Dataloginandsingup {
     String? emmail,
     String? password,
     double? balance,
+     String? id,
   }) {
     return Dataloginandsingup(
       ferstName: ferstName ?? this.ferstName,
@@ -28,9 +31,41 @@ class Dataloginandsingup {
       emmail: emmail ?? this.emmail,
       password: password ?? this.password,
       balance: balance ?? this.balance,
+      id: id ?? this.id,
+    );
+  }
+
+
+
+
+  Map<String, dynamic> toMap() {
+    return {
+      'ferstName': ferstName,
+      'lastName': lastName,
+      'emmail': emmail,
+      ' password': password,
+      'balance': balance,
+
+    };
+
+  }
+
+
+
+  factory Dataloginandsingup.fromMap(Map<String, dynamic> map, String docId) {
+    return Dataloginandsingup(
+      ferstName : map['ferstName'],
+      lastName: map['lastName'],
+      emmail: map['emmail'],
+      password: map['password'],
+      balance: map['balance'],
+      id: docId,
+
     );
   }
 }
+
+
 
 List<Dataloginandsingup> listLogin = [
   Dataloginandsingup(
