@@ -12,6 +12,10 @@ class Deletprodact extends StatefulWidget {
 }
 
 class _DeletprodactState extends State<Deletprodact> {
+
+  final TextEditingController searchController = TextEditingController();
+  bool truSherch = false;
+
   Future<void> dleteItem(String name, String id) async {
     await FirebaseFirestore.instance.collection("products").doc(id).delete();
 
@@ -50,46 +54,137 @@ class _DeletprodactState extends State<Deletprodact> {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(),
-      body: Expanded(
-        child: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection("products").snapshots(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting &&
-                !snapshot.hasData) {
-              return Center(child: CircularProgressIndicator());
-            } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-              return Center(child: Text("nooo  Prodact"));
-            } else {
-              final allprodact = snapshot.data!.docs
-                  .map((e) => ModelProduct.fromMap(e.data(), e.id))
-                  .where(
-                    (o) =>
-                        o.type == "topgame" ||
-                        o.type == "soongame" ||
-                        o.type == "product",
-                  )
-                  .toList();
-              return Container(
-                child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                  ),
-                  itemCount: allprodact.length,
-                  itemBuilder: (context, index) => Costomprodactadmein(
-                    games: allprodact[index],
-                    ifvi: allprodact[index].isFav,
-                    actionIcon: Icons.delete,
-                    onIconTap: () {
-                      showdelet(
-                        allprodact[index].namePrdact,
-                        allprodact[index].id!,
-                      );
-                    },
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+
+
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [BoxShadow(blurRadius: 60)],
+                borderRadius: BorderRadius.circular(25),
+              ),
+              child: TextFormField(
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: "Search",
+                  prefixIcon: GestureDetector(
+                    onTap: () {},
+
+                    child: Icon(Icons.search),
                   ),
                 ),
-              );
-            }
-          },
+                controller: searchController,
+                onChanged: (value) {
+
+
+                  setState(() {
+                    searchController.text=value;
+                    truSherch = value!.isNotEmpty;
+                  });
+
+                },
+              ),
+            ),
+
+
+
+
+            truSherch?
+            StreamBuilder(
+              stream: FirebaseFirestore.instance.collection("products").snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting &&
+                    !snapshot.hasData) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                  return Center(child: Text("nooo  Prodact"));
+                } else {
+                  final allprodact = snapshot.data!.docs
+                      .map((e) => ModelProduct.fromMap(e.data(), e.id))
+                      .where(
+                        (o) =>
+                   o.namePrdact.toLowerCase().contains(searchController.text)
+                  )
+                      .toList();
+                  return Container(
+                    child: GridView.builder(
+
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                      ),
+                      itemCount: allprodact.length,
+                      itemBuilder: (context, index) => Costomprodactadmein(
+                        games: allprodact[index],
+                        ifvi: allprodact[index].isFav,
+                        actionIcon: Icons.delete,
+                        onIconTap: () {
+                          showdelet(
+                            allprodact[index].namePrdact,
+                            allprodact[index].id!,
+                          );
+                        },
+                      ),
+                    ),
+                  );
+                }
+              },
+            )
+
+
+
+
+
+
+                :StreamBuilder(
+              stream: FirebaseFirestore.instance.collection("products").snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting &&
+                    !snapshot.hasData) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                  return Center(child: Text("nooo  Prodact"));
+                } else {
+                  final allprodact = snapshot.data!.docs
+                      .map((e) => ModelProduct.fromMap(e.data(), e.id))
+                      .where(
+                        (o) =>
+                            o.type == "topgame" ||
+                            o.type == "soongame" ||
+                            o.type == "product",
+                      )
+                      .toList();
+                  return Container(
+                    child: GridView.builder(
+
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                      ),
+                      itemCount: allprodact.length,
+                      itemBuilder: (context, index) => Costomprodactadmein(
+                        games: allprodact[index],
+                        ifvi: allprodact[index].isFav,
+                        actionIcon: Icons.delete,
+                        onIconTap: () {
+                          showdelet(
+                            allprodact[index].namePrdact,
+                            allprodact[index].id!,
+                          );
+                        },
+                      ),
+                    ),
+                  );
+                }
+              },
+            ),
+          ],
         ),
       ),
     );

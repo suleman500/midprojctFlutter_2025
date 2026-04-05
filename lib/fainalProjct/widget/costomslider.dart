@@ -3,7 +3,7 @@ import 'package:orojct/fainalProjct/models/slider.dart';
 
 
 class CostomSliderr extends StatelessWidget {
-  ModelSlider phto;
+  final ModelSlider phto;
   CostomSliderr({required this.phto});
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ borderRadius: BorderRadiusGeometry.circular(20),
          
 
 
-             Image.asset(
+             Image.network(
               phto.namePhtoos,fit: BoxFit.cover
              
                        ),

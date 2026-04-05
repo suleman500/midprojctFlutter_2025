@@ -48,7 +48,7 @@ class _CostomprodactadmeinState extends State<Costomprodactadmein> {
                   ),
                 ),
               Expanded(
-                child: Image.asset(
+                child: Image.network(
                   widget.games.photoProdact,
                   fit: BoxFit.contain,
                 ),

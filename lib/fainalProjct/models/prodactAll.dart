@@ -9,6 +9,7 @@ class ModelProduct {
   final String? discrbion;
   final String type;
   final String? id;
+  final List<String>? photoPrd;
 
   ModelProduct({
     required this.namePrdact,
@@ -19,6 +20,7 @@ class ModelProduct {
     this.discrbion,
     required this.type,
      this.id,
+    this.photoPrd
   });
 
   ModelProduct copyWith({
@@ -30,6 +32,7 @@ class ModelProduct {
     String? discrbion,
     String? type,
     String? id,
+    List<String>?photoPrd
   }) {
     return ModelProduct(
       namePrdact: namePrdact ?? this.namePrdact,
@@ -40,6 +43,7 @@ class ModelProduct {
       discrbion: discrbion ?? this.discrbion,
       type: type ?? this.type,
       id: id ?? this.id,
+      photoPrd: photoPrd??this.photoPrd
     );
   }
 
@@ -52,6 +56,7 @@ class ModelProduct {
       'isFav': isFav,
       'discrbion': discrbion,
       'type': type,
+      'photoPrd': photoPrd
 
     };
   }
@@ -66,6 +71,7 @@ class ModelProduct {
       price: map['price']?.toDouble() ?? 0,
       discrbion: map['discrbion'],
       id: docId,
+        photoPrd: map['photoPrd']
     );
   }
 }

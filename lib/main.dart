@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:orojct/explorStorg.dart';
 import 'package:orojct/fainalProjct/scriens/firstPage.dart';
 
 
@@ -34,7 +35,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
 
-  @override
+
 
 
   @override
@@ -42,7 +43,9 @@ class _MyAppState extends State<MyApp> {
 
   return MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: Splashscreen(),
+    home: Splashscreen()
+    //Explorstorg()
+    ,
     builder: EasyLoading.init(),
 
   );

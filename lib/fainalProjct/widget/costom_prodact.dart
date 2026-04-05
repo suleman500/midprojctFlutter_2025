@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:orojct/fainalProjct/models/prodactAll.dart';
 import 'package:orojct/orderDetalisPag.dart';
+import 'package:page_transition/page_transition.dart';
 
 class CostomProdact extends StatefulWidget {
   ModelProduct moGrd;
@@ -22,8 +23,25 @@ class CostomProdact extends StatefulWidget {
 class _CostomProdactState extends State<CostomProdact> {
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => Navigator.push(context, MaterialPageRoute(builder:(context) => Orderdetalispag(nameProdact:widget.moGrd.namePrdact, price:widget.moGrd.price, photoProdact:widget.moGrd.photoProdact,balance: widget.moGrd.price,discrbion: widget.moGrd.discrbion,))),
+    return GestureDetector(
+
+
+      onTap: () {
+        Navigator.push(
+          context,
+          PageTransition(
+            type: PageTransitionType.fade,
+            duration: Duration(milliseconds: 300),
+            child: Orderdetalispag(
+              nameProdact:widget.moGrd.namePrdact,
+              price: widget.moGrd.price,
+              photoProdact: widget.moGrd.photoProdact,
+              balance: widget.moGrd.price,
+              discrbion: widget.moGrd.discrbion,
+            ),
+          ),
+        );
+      },
 
       child: Container(
         height: MediaQuery.of(context).size.height * 0.28,
@@ -35,15 +53,27 @@ class _CostomProdactState extends State<CostomProdact> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            InkWell(
-              onTap: widget.onTa7p,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Align(
-                  child: widget.isFav
-                      ? Icon(Icons.favorite, size: 26, color: Colors.red)
-                      : Icon(Icons.favorite_border, size: 26),
-                  alignment: Alignment.topRight,
+            CircleAvatar(
+              //  radius: MediaQuery.of(context).size.width * 0.04,
+              backgroundColor: Colors.white,
+
+              child: InkWell(
+                onTap: widget.onTa7p,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Align(
+                    child: Container(
+                      child: widget.isFav
+                          ? Icon(Icons.favorite, size: 19, color: Colors.red)
+                          : Icon(
+                              Icons.favorite_border,
+                              size: 19,
+                              color: Colors.red,
+                            ),
+                    ),
+
+                    alignment: Alignment.topRight,
+                  ),
                 ),
               ),
             ),
@@ -55,7 +85,7 @@ class _CostomProdactState extends State<CostomProdact> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   image: DecorationImage(
-                    image: AssetImage(widget.moGrd.photoProdact),
+                    image: NetworkImage(widget.moGrd.photoProdact),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -88,7 +118,10 @@ class _CostomProdactState extends State<CostomProdact> {
                           SizedBox(width: 4),
                           Text(
                             "5.0",
-                            style: TextStyle(color: Colors.black45, fontSize: 12),
+                            style: TextStyle(
+                              color: Colors.black45,
+                              fontSize: 12,
+                            ),
                           ),
                         ],
                       ),

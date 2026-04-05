@@ -2,6 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:orojct/fainalProjct/models/prodactAll.dart';
 import 'package:orojct/fainalProjct/widget/costomTextForm.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 class Addprodact extends StatefulWidget {
 
@@ -19,6 +25,7 @@ class _AddprodactState extends State<Addprodact> {
   final TextEditingController photoController = TextEditingController();
 
   final TextEditingController descController = TextEditingController();
+  String ?kayPhoto;
 
   Future<void>addProdact(ModelProduct proda)async{
     // doc  يعني لمستخدم معين
@@ -30,7 +37,7 @@ class _AddprodactState extends State<Addprodact> {
   String selectedType = 'product';
 
   List<String> types = ['product', 'topgame', 'soongame'];
-
+final stoRef=FirebaseStorage.instance.ref();
   @override
 
 
@@ -77,13 +84,18 @@ class _AddprodactState extends State<Addprodact> {
               SizedBox(height: 15),
 
 
-              CustomTextField(
+
+
+
+
+
+           /*   CustomTextField(
                 label: Icons.image,
                 hint: "رابط الصورة",
                 helper: "",
                 control: photoController,
                 obscureText: false,
-              ),
+              ),*/
               SizedBox(height: 15),
 
 
@@ -122,20 +134,62 @@ class _AddprodactState extends State<Addprodact> {
                   },
                 ),
               ),
+
+              ElevatedButton(onPressed: ()async {
+                final ImagePicker picker = ImagePicker();
+                final imeg= await picker.pickImage(source: ImageSource.gallery);
+                //  خزنت الاسم الاصلي
+                String nemeOrig=imeg!.name;
+                // هون اعملت اسم من الوقت
+                String time = DateTime.now().millisecondsSinceEpoch.toString();
+                // هون دمحت الاسم مع الوقت
+                String newName="$time-$nemeOrig";
+
+                final photo=stoRef.child("$selectedType/$newName");
+//  هون رفعت الاسم من photo و داخلهم الاصوره الاصليه  الي هي imeg
+                await photo.putFile((File(imeg!.path)));
+                String urlImeg= await photo.getDownloadURL();
+                setState(() {
+                kayPhoto =urlImeg;
+                });
+
+
+              }, child:Text("Uplod Image Photo prodac") ),
+
+
+
+
               SizedBox(height: 30),
 
 
-              InkWell(
-                onTap: () {
+              ElevatedButton(
+                onPressed: () {
+
+
+
+
                   ModelProduct newprod = ModelProduct(
                       namePrdact: nameController.text,
                       spuNames: spuNamesController.text,
-                      photoProdact: photoController.text,
+                      photoProdact: kayPhoto!,
                       isFav: false,
                       type: selectedType,
                       price: double.parse(priceController.text),
                       discrbion: descController.text);
                   addProdact(newprod);
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("The active image has been uploaded")));
+
+                  nameController.clear();
+                  spuNamesController.clear();
+                  priceController.clear();
+                  descController.clear();
+                  setState(() {
+                    kayPhoto = null;
+                  });
+
+
                 },
                 child: Container(
                   width: double.infinity,

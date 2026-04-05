@@ -45,7 +45,7 @@ class _OrderdetalispagState extends State<Orderdetalispag> {
     child: Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-    Image.asset(widget.photoProdact),
+    Image.network(widget.photoProdact),
 
     Row(
     mainAxisAlignment: MainAxisAlignment.center,

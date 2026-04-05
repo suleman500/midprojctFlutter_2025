@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:orojct/fainalProjct/models/dataLoginAndSingUp.dart';
 import 'package:orojct/fainalProjct/models/slider.dart';
 import 'package:orojct/fainalProjct/scriens/Pagnotifications.dart';
+import 'package:orojct/fainalProjct/scriens/login.dart';
 import 'package:orojct/fainalProjct/scriens/myProfaile.dart';
 import 'package:orojct/fainalProjct/scriens/pageSearsch.dart';
 import 'package:orojct/fainalProjct/scriens/shopping_cart.dart';
@@ -39,12 +40,16 @@ class _HomepagState extends State<HomeShopGame> {
   String selectedItem = "All";
   String sershText = "";
   bool fiv = false;
+  String cTogrie = "All";
+
+
 
   //List<ModelProduct> products = allList.where((item) => item.type == "product").toList();
   //List<ModelProduct> topGames = allList.where((item) => item.type == "top_game").toList();
   //List<ModelProduct> soonGames = allList.where((item) => item.type == "soon_game").toList();
 
-  //final userA=FirebaseAuth.instance.currentUser;
+  final userA = FirebaseAuth.instance.currentUser;
+
   void initState() {
     super.initState();
   }
@@ -71,6 +76,12 @@ class _HomepagState extends State<HomeShopGame> {
           .doc(prodact.id)
           .delete();
     }
+  }
+
+  catgreProdact(String name) {
+    setState(() {
+      cTogrie = name;
+    });
   }
 
   /*searchProducts(String name) {
@@ -105,28 +116,43 @@ class _HomepagState extends State<HomeShopGame> {
           physics: AlwaysScrollableScrollPhysics(),
           child: Column(
             children: [
+              Text(
+                "ARENAGamesSHOP",
+                style: TextStyle(
+                  color: Colors.blue.shade300,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: "rrt",
+                ),
+              ),
+
+
+
+
+
+
+
               // الهيدر
               Container(
-                height: MediaQuery
-                    .of(context)
-                    .size
-                    .height * 0.15,
+                height: MediaQuery.of(context).size.height * 0.15,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width * 0.25,
+                      width: MediaQuery.of(context).size.width * 0.25,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           InkWell(
-                           // onTap:,
+
+
+                             onTap:() {
+                               Navigator.push(context, MaterialPageRoute(builder: (context) => Myprofaile(),));
+                             },
                             child: ListTile(
                               title: CircleAvatar(
-                                  child: Text("{userA!.displayName}")),
+                                child: Icon(Icons.person),
+                              ),
                               subtitle: Text("0"),
                             ),
                           ),
@@ -142,10 +168,7 @@ class _HomepagState extends State<HomeShopGame> {
                             page: Pagnotifications(),
                           ),
                           SizedBox(
-                            width: MediaQuery
-                                .of(context)
-                                .size
-                                .width * 0.03,
+                            width: MediaQuery.of(context).size.width * 0.02,
                           ),
                           Costomacionsicons(
                             icon: Icons.support_agent_outlined,
@@ -158,38 +181,38 @@ class _HomepagState extends State<HomeShopGame> {
                 ),
               ),
 
-              // CarouselSlider العلوي
               Container(
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width,
-                child: CarouselSlider(
-                  options: CarouselOptions(
-                    disableCenter: true,
-                    autoPlay: true,
-                    aspectRatio: 0.2,
-                    animateToClosest: true,
-                    enlargeCenterPage: true,
-                    pauseAutoPlayOnTouch: true,
-                    enableInfiniteScroll: true,
-                    autoPlayInterval: Duration(seconds: 5),
-                    height: MediaQuery
-                        .of(context)
-                        .size
-                        .height * 0.23,
-                    viewportFraction: 0.88,
-                    onPageChanged: (index, reason) {
-                      setState(() {});
-                    },
-                  ),
-                  items: phtosAdss.map((phto) {
-                    return Container(child: CostomSliderr(phto: phto));
-                  }).toList(),
+                width: MediaQuery.of(context).size.width,
+                child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection("Advertisements")
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    final aDv = snapshot.data!.docs
+                        .map((e) => ModelSlider.fromMap(e.data(), e.id))
+                        .toList();
+                    return CarouselSlider(
+                      options: CarouselOptions(
+                        disableCenter: true,
+                        autoPlay: true,
+                        aspectRatio: 0.2,
+                        animateToClosest: true,
+                        enlargeCenterPage: true,
+                        pauseAutoPlayOnTouch: true,
+                        enableInfiniteScroll: true,
+                        autoPlayInterval: Duration(seconds: 5),
+                        height: MediaQuery.of(context).size.height * 0.23,
+                        viewportFraction: 0.88,
+                        onPageChanged: (index, reason) {
+                          setState(() {});
+                        },
+                      ),
+                      items: aDv.map((e) => CostomSliderr(phto: e)).toList(),
+                    );
+                  },
                 ),
               ),
 
-              // حقل البحث
               Container(
                 margin: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
                 decoration: BoxDecoration(
@@ -198,9 +221,15 @@ class _HomepagState extends State<HomeShopGame> {
                   borderRadius: BorderRadius.circular(25),
                 ),
                 child: TextFormField(
+                  onChanged: (newVal) {
+                    setState(() {
+                      searchController.text = newVal;
+                    });
+                  },
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: "Search",
+
                     prefixIcon: GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -215,265 +244,357 @@ class _HomepagState extends State<HomeShopGame> {
                     ),
                   ),
                   controller: searchController,
-                  onSaved: (newValue) {
-                    // searchProducts(newValue!);
-                  },
                 ),
               ),
-
-              // التصنيفات
               Container(
-                height: MediaQuery
-                    .of(context)
-                    .size
-                    .width * 0.25,
+                height: MediaQuery.of(context).size.width * 0.25,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: categoriesList.length,
                   reverse: true,
-                  itemExtent: MediaQuery
-                      .of(context)
-                      .size
-                      .width * 0.25,
+                  itemExtent: MediaQuery.of(context).size.width * 0.25,
                   itemBuilder: (context, index) {
                     return costomCatger(
                       gatoger: categoriesList[index],
                       voidCallback: () {
-                        //  وهون رح اصنف المنتجات
+                        if (categoriesList[index].namesTopCate == "All") {
+                          cTogrie = "All";
+                        } else {
+                          catgreProdact(categoriesList[index].namesTopCate);
+                        }
                       },
                     );
                   },
                 ),
               ),
-              // قسم Top Games (ListView أفق
-              Container(
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        Text("Top Games", style: Textstayle.textStyle3),
 
-                        Icon(
-                          Icons.navigate_next_outlined,
-                          shadows: [Shadwostayle.statyl1],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+              if (cTogrie == "All")
+                searchController.text.isEmpty
+                    ? Column(
+                        children: [
+                          Container(
+                            child: Align(
+                              alignment: Alignment.topLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      "Top Games",
+                                      style: Textstayle.textStyle3,
+                                    ),
 
-              Container(
-                height: MediaQuery
-                    .of(context)
-                    .size
-                    .height * 0.16,
-                child:
-                //  عشان المنتجات
-                StreamBuilder(
-                  stream: FirebaseFirestore.instance
-                      .collection('products')
-                      .snapshots(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState ==
-                        ConnectionState.waiting) {
-                      return Center(child: CircularProgressIndicator());
-                    } else if (!snapshot.hasData ||
-                        snapshot.data!.docs.isEmpty) {
-                      return Center(child: Text("nooo  Prodact"));
-                    } else {
-                      final top_game = snapshot.data!.docs
-                          .map((e) => ModelProduct.fromMap(e.data(), e.id))
-                          .where((e) => e.type == "topgame")
-                          .toList();
-                      return Container(
-                        child: ListView.builder(
-                          itemCount: top_game.length,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) =>
-                              CostomGames(
-                                games: top_game[index],
-                                ifvi: top_game[index].isFav,
-                                onTa7p: () async {
-                                  bool isfav = !top_game[index].isFav;
-                                  addfavirte(top_game[index], isfav);
-                                },
+                                    Icon(
+                                      Icons.navigate_next_outlined,
+                                      shadows: [Shadwostayle.statyl1],
+                                    ),
+                                  ],
+                                ),
                               ),
-                        ),
-                      );
-                    }
-                  },
-                ),
-              ),
-
-              Container(
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        Text("Top Soon games", style: Textstayle.textStyle3),
-
-                        Icon(
-                          Icons.navigate_next_outlined,
-                          shadows: [Shadwostayle.statyl1],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-
-              Container(
-                height: MediaQuery
-                    .of(context)
-                    .size
-                    .height * 0.14,
-                child:
-                //  عشان المنتجات
-                StreamBuilder(
-                  stream: FirebaseFirestore.instance
-                      .collection('products')
-                      .snapshots(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState ==
-                        ConnectionState.waiting) {
-                      return Center(child: CircularProgressIndicator());
-                    } else if (!snapshot.hasData ||
-                        snapshot.data!.docs.isEmpty) {
-                      return Center(child: Text("nooo  Prodact"));
-                    } else {
-                      final soongame = snapshot.data!.docs
-                          .map((e) => ModelProduct.fromMap(e.data(), e.id))
-                          .where((e) => e.type == "soongame")
-                          .toList();
-                      return Container(
-                        child: ListView.builder(
-                          itemCount: soongame.length,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) =>
-                              CostomGames(
-                                games: soongame[index],
-                                ifvi: soongame[index].isFav,
-                                onTa7p: () async {
-                                  bool isfav = !soongame[index].isFav;
-                                  addfavirte(soongame[index], isfav);
-                                },
-                              ),
-                        ),
-                      );
-                    }
-                  },
-                ),
-              ),
-
-              Container(
-                height: MediaQuery
-                    .of(context)
-                    .size
-                    .height * 0.08,
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width * 0.90,
-                child: CarouselSlider(
-                  options: CarouselOptions(
-                    scrollDirection: Axis.vertical,
-                    clipBehavior: Clip.antiAlias,
-                    autoPlay: true,
-                    pageSnapping: true,
-                    animateToClosest: true,
-                    enlargeCenterPage: true,
-                    autoPlayCurve: Curves.easeInToLinear,
-                    pauseAutoPlayOnTouch: true,
-                    disableCenter: true,
-                    enableInfiniteScroll: true,
-                    autoPlayInterval: Duration(seconds: 6),
-                    height: MediaQuery
-                        .of(context)
-                        .size
-                        .height * 0.10,
-                    viewportFraction: 0.90,
-                    aspectRatio: 16 / 4,
-                    onPageChanged: (index, reason) {
-                      setState(() {});
-                    },
-                  ),
-                  items: slid.map((phto) {
-                    return Container(child: CostomSliderr(phto: phto));
-                  }).toList(),
-                ),
-              ),
-
-              Container(
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        Text("Top Prodact", style: Textstayle.textStyle3),
-
-                        Icon(
-                          Icons.navigate_next_outlined,
-                          shadows: [Shadwostayle.statyl1],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-
-              Container(
-                height: MediaQuery
-                    .of(context)
-                    .size
-                    .height * 0.3,
-
-                child:
-                //  عشان المنتجات
-                StreamBuilder(
-                  stream: FirebaseFirestore.instance
-                      .collection('products')
-                      .snapshots(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState ==
-                        ConnectionState.waiting) {
-                      return Center(child: CircularProgressIndicator());
-                    } else if (!snapshot.hasData ||
-                        snapshot.data!.docs.isEmpty) {
-                      return Center(child: Text("nooo  Prodact"));
-                    } else {
-                      final proddu = snapshot.data!.docs
-                          .map((e) => ModelProduct.fromMap(e.data(), e.id))
-                          .where((e) => e.type == "product")
-                          .toList();
-                      return Card(
-                        child: GridView.builder(
-                          gridDelegate:
-                          SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 2,
+                            ),
                           ),
-                          itemCount: proddu.length,
-                          itemBuilder: (context, index) =>
-                              CostomProdact(
-                                moGrd: proddu[index],
-                                isFav: proddu[index].isFav,
-                                onTa7p: () async {
-                                  bool isfav = !proddu[index].isFav;
-                                  addfavirte(proddu[index], isfav);
+
+                          Container(
+                            height: MediaQuery.of(context).size.height * 0.20,
+                            child:
+
+                                StreamBuilder(
+                                  stream: FirebaseFirestore.instance
+                                      .collection('products')
+                                      .snapshots(),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    } else if (!snapshot.hasData ||
+                                        snapshot.data!.docs.isEmpty) {
+                                      return Center(
+                                        child: Text("nooo  Prodact"),
+                                      );
+                                    } else {
+                                      final top_game = snapshot.data!.docs
+                                          .map(
+                                            (e) => ModelProduct.fromMap(
+                                              e.data(),
+                                              e.id,
+                                            ),
+                                          )
+                                          .where((e) => e.type == "topgame")
+                                          .toList();
+                                      return Container(
+                                        child: ListView.builder(
+                                          itemCount: top_game.length,
+                                          scrollDirection: Axis.horizontal,
+                                          itemBuilder: (context, index) =>
+                                              CostomGames(
+                                                games: top_game[index],
+                                                ifvi: top_game[index].isFav,
+                                                onTa7p: () async {
+                                                  bool isfav =
+                                                      !top_game[index].isFav;
+                                                  addfavirte(
+                                                    top_game[index],
+                                                    isfav,
+                                                  );
+                                                },
+                                              ),
+                                        ),
+                                      );
+                                    }
+                                  },
+                                ),
+                          ),
+
+                          Container(
+                            child: Align(
+                              alignment: Alignment.topLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      "Top Soon games",
+                                      style: Textstayle.textStyle3,
+                                    ),
+
+                                    Icon(
+                                      Icons.navigate_next_outlined,
+                                      shadows: [Shadwostayle.statyl1],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+
+                          Container(
+                            height: MediaQuery.of(context).size.height * 0.14,
+                            child:
+                                //  عشان المنتجات
+                                StreamBuilder(
+                                  stream: FirebaseFirestore.instance
+                                      .collection('products')
+                                      .snapshots(),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    } else if (!snapshot.hasData ||
+                                        snapshot.data!.docs.isEmpty) {
+                                      return Center(
+                                        child: Text("nooo  Prodact"),
+                                      );
+                                    } else {
+                                      final soongame = snapshot.data!.docs
+                                          .map(
+                                            (e) => ModelProduct.fromMap(
+                                              e.data(),
+                                              e.id,
+                                            ),
+                                          )
+                                          .where((e) => e.type == "soongame")
+                                          .toList();
+                                      return Container(
+                                        child: ListView.builder(
+                                          itemCount: soongame.length,
+                                          scrollDirection: Axis.horizontal,
+                                          itemBuilder: (context, index) =>
+                                              CostomGames(
+                                                games: soongame[index],
+                                                ifvi: soongame[index].isFav,
+                                                onTa7p: () async {
+                                                  bool isfav =
+                                                      !soongame[index].isFav;
+                                                  addfavirte(
+                                                    soongame[index],
+                                                    isfav,
+                                                  );
+                                                },
+                                              ),
+                                        ),
+                                      );
+                                    }
+                                  },
+                                ),
+                          ),
+
+                          Container(
+                            height: MediaQuery.of(context).size.height * 0.08,
+                            width: MediaQuery.of(context).size.width * 0.90,
+                            child: CarouselSlider(
+                              options: CarouselOptions(
+                                scrollDirection: Axis.vertical,
+                                clipBehavior: Clip.antiAlias,
+                                autoPlay: true,
+                                pageSnapping: true,
+                                animateToClosest: true,
+                                enlargeCenterPage: true,
+                                autoPlayCurve: Curves.easeInToLinear,
+                                pauseAutoPlayOnTouch: true,
+                                disableCenter: true,
+                                enableInfiniteScroll: true,
+                                autoPlayInterval: Duration(seconds: 6),
+                                height:
+                                    MediaQuery.of(context).size.height * 0.10,
+                                viewportFraction: 0.90,
+                                aspectRatio: 16 / 4,
+                                onPageChanged: (index, reason) {
+                                  setState(() {});
                                 },
                               ),
-                        ),
-                      );
+                              items: [],
+                            ),
+                          ),
+
+                          Container(
+                            child: Align(
+                              alignment: Alignment.topLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      "Top Prodact",
+                                      style: Textstayle.textStyle3,
+                                    ),
+                                    Icon(
+                                      Icons.navigate_next_outlined,
+                                      shadows: [Shadwostayle.statyl1],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+
+                          Container(
+                            height: MediaQuery.of(context).size.height * 0.3,
+                            child: StreamBuilder(
+                              stream: FirebaseFirestore.instance
+                                  .collection('products')
+                                  .snapshots(),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                } else if (!snapshot.hasData ||
+                                    snapshot.data!.docs.isEmpty) {
+                                  return Center(child: Text("nooo  Prodact"));
+                                } else {
+                                  final proddu = snapshot.data!.docs
+                                      .map(
+                                        (e) => ModelProduct.fromMap(
+                                          e.data(),
+                                          e.id,
+                                        ),
+                                      )
+                                      .where((e) => e.type == "product")
+                                      .toList();
+                                  return Card(
+                                    child: GridView.builder(
+                                      shrinkWrap: true,
+
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 2,
+                                            mainAxisSpacing: 8,
+                                            crossAxisSpacing: 8,
+                                          ),
+                                      itemCount: proddu.length,
+                                      itemBuilder: (context, index) =>
+                                          CostomProdact(
+                                            moGrd: proddu[index],
+                                            isFav: proddu[index].isFav,
+                                            onTa7p: () async {
+                                              bool isfav = !proddu[index].isFav;
+                                              await addfavirte(
+                                                proddu[index],
+                                                isfav,
+                                              );
+                                              setState(() {});
+                                            },
+                                          ),
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
+                          ),
+                        ],
+                      )
+                    : StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                            .collection("products")
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          final serch = snapshot.data!.docs
+                              .map((e) => ModelProduct.fromMap(e.data(), e.id))
+                              .where(
+                                (i) => i.namePrdact.toLowerCase().contains(
+                                  searchController.text,
+                                ),
+                              )
+                              .toList();
+                          return Container(
+                            height: MediaQuery.of(context).size.height * 0.5,
+
+                            child: GridView.builder(
+                              shrinkWrap: true,
+
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                  ),
+                              itemCount: serch.length,
+                              itemBuilder: (context, index) =>
+                                  CostomGames(games: serch[index]),
+                            ),
+                          );
+                        },
+                      )
+              else
+                StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection("products")
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    final ctgre = snapshot.data!.docs
+                        .map((e) => ModelProduct.fromMap(e.data(), e.id))
+                        .where((l) => l.type == cTogrie)
+                        .toList();
+
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(child: CircularProgressIndicator());
                     }
+
+                    if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                      return Center(child: Text("nooo  Prodact"));
+                    }
+
+                    return Container(
+                      height: MediaQuery.of(context).size.height * 0.5,
+
+                      child: GridView.builder(
+                        shrinkWrap: true,
+
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                        ),
+                        itemCount: ctgre.length,
+                        itemBuilder: (context, index) =>
+                            CostomGames(games: ctgre[index]),
+                      ),
+                    );
                   },
                 ),
-              ),
+
+
             ],
           ),
         ),
